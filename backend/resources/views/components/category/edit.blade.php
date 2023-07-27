@@ -1,6 +1,7 @@
 <form id="UpdateForm" data-id="{{ $data->id }}" method="post">
     @csrf
-    {{-- "_method":"put" --}}
+    @method('put')
+    <input type="hidden" name="id" value="{{ $data->id }}">
     <div class="row g-3">
         <div class="col-12">
         <x-forms.input :type="'text'" :value="$data->name" :name="'name'" :label="'Category Name'" :id="''" :placeholder="''" :class="'form-control'" />

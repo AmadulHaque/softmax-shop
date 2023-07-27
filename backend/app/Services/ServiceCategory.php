@@ -5,7 +5,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 
-trait CreateCategory
+trait ServiceCategory
 {
     /**
      * Create new user
@@ -13,9 +13,19 @@ trait CreateCategory
      * 
      * @return App\Models\User $user
      */
-    public function create(array $data) : Model
+    public function create( $data)
     {
         $data = Category::create($data);
+        return $data;
+    }
+    public function allData()
+    {
+        $data = Category::all();
+        return $data;
+    }
+    public function findOne($id)
+    {
+        $data = Category::findOrFail($id);
         return $data;
     }
 }

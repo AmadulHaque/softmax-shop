@@ -3,20 +3,20 @@
 
 <div class="card">
     <div class="card-body p-4">
-      <h5 class="card-title">Add New Category</h5>
+      <h5 class="card-title">Add New Unit</h5>
       <hr>
       <div class="form-body mt-4">
         <div class="row">
           <div class="col-lg-8">
             <div class="table-responsive">
-                <x-category.table :categorys="$categorys"/>
+                <x-unit.table :units="$units"/>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="border border-3 p-4 rounded">
                 <form id="form" method="post">
                     @csrf
-                    <x-category.form :categorys="$categorys"/>
+                    <x-unit.form :units="$units"/>
                 </form>
             </div>
           </div>
@@ -26,7 +26,7 @@
 </div>
 
 {{-- edit modal --}}
-<div class="modal fade" id="CategoryEditModal" tabindex="-1" aria-labelledby="CategoryEditModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div id="FormValue" class="modal-body">
@@ -54,7 +54,7 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
             type:'post',
-            url: '/page/category',
+            url: '/page/unit',
             data:formData,
             contentType:false,
             processData:false,
@@ -65,7 +65,7 @@ $(document).ready(function() {
                         ErrorToastFun(item)
                     })
                 }else{
-                    SuccessToastFun('Caegory Add Success!');
+                    SuccessToastFun('Add Success!');
                     $('#form')[0].reset();
                     //   location.reload();
                     $('.table').load(location.href+' .table')
@@ -85,11 +85,11 @@ $(document).ready(function() {
         loaderShow();
         $.ajax({
             type:'get',
-            url: '/page/category/'+id,
+            url: '/page/unit/'+id,
             success: function(res){
                 loaderHide();
                 $('#FormValue').html(res);
-                $('#CategoryEditModal').modal('show')
+                $('#EditModal').modal('show')
             },
             error:function (response){
                 console.log(response);
@@ -108,7 +108,7 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
             type:'post',
-            url: '/page/category/'+id,
+            url: '/page/unit/'+id,
             data:formData,
             contentType:false,
             processData:false,
@@ -119,8 +119,8 @@ $(document).ready(function() {
                         ErrorToastFun(item)
                     })
                 }else{
-                    $('#CategoryEditModal').modal('hide')
-                    SuccessToastFun('Caegory Update Success!');
+                    $('#EditModal').modal('hide')
+                    SuccessToastFun('Update Success!');
                     $('#UpdateForm')[0].reset();
                     // location.reload();
                     $('.table').load(location.href+' .table')
@@ -145,7 +145,7 @@ $(document).ready(function() {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type:'DELETE',
-                    url: '/page/category/'+id,
+                    url: '/page/unit/'+id,
                     contentType:false,
                     processData:false,
                     success: function(res){

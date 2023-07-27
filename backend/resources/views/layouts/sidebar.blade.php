@@ -28,6 +28,8 @@
 					</a>
 					<ul>
 						<li> <a href="/page/category"  ><i class="bx bx-right-arrow-alt"></i>Category</a></li>
+						<li> <a href="/page/brand"  ><i class="bx bx-right-arrow-alt"></i>Brand</a></li>
+						<li> <a href="/page/unit"  ><i class="bx bx-right-arrow-alt"></i>Unit</a></li>
 					</ul>
 				</li>
 

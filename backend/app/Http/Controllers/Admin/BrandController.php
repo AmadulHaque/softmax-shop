@@ -4,21 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Category\AddRequest;
-use App\Http\Requests\Category\UpdateRequest;
-use App\Models\Category;
-use App\Services\ServiceCategory;
 use App\Http\Resources\SuccessResource;
-class CategoryController extends Controller
+use App\Http\Requests\Brand\AddRequest;
+use App\Http\Requests\Brand\UpdateRequest;
+use App\Services\ServiceBrand;
+use App\Models\Brand;
+
+
+
+class BrandController extends Controller
 {
-    use ServiceCategory;
-    /**
+    use ServiceBrand;
+    
+  /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categorys = $this->allData();
-        return view('pages.Category',compact('categorys'));
+        $brands = $this->allData();
+        return view('pages.Brand',compact('brands'));
     }
 
  
@@ -31,7 +35,7 @@ class CategoryController extends Controller
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
             $file = $request->file('image');
-            @unlink(public_path($data->image));
+            @unlink(public_path('images/'.$data->image));
             $filename = 'category_'.date('YmdHi').$file->getClientOriginalName();
             $file->move(public_path('images/'),$filename);
             $data['image'] = 'images/'.$filename;
@@ -46,36 +50,37 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categorys =  $this->allData();
+        $brands =  $this->allData();
         $data = $this->findOne($id);
-        return view('components.category.edit',compact('data','categorys'));  
+        return view('components.brand.edit',compact('data','brands'));  
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Category $category)
+    public function update(UpdateRequest $request, Brand $brand)
     {
         $data = $request->validated();
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
             $file = $request->file('image');
-            @unlink(public_path($category->image));
-            $filename = 'category_'.date('YmdHi').$file->getClientOriginalName();
+            @unlink(public_path($brand->image));
+            $filename = 'brand_'.date('YmdHi').$file->getClientOriginalName();
             $file->move(public_path('images/'),$filename);
             $data['image'] = 'images/'.$filename;
         }
-        $category->update($data);
+        $brand->update($data);
         return new SuccessResource($data);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Brand $brand)
     {
-        $category->delete();
-        @unlink(public_path($category->image));
-        return new SuccessResource(['message' => 'Successfully Category deleted.']);
+        $brand->delete();
+        @unlink(public_path($brand->image));
+        return new SuccessResource(['message' => 'Successfully Brand deleted.']);
     }
+
 }
