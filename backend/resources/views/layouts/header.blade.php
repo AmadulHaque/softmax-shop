@@ -9,6 +9,8 @@
 	<!--favicon-->
 	<link rel="icon" href="../assets/images/logo-icon.png" type="image/png" />
 	<!--plugins-->
+	<link href="../assets/plugins/editor/editor.css" rel="stylesheet" />
+	<link href="../assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css" rel="stylesheet" />
 	<link href="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
 	<link href="../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
 	<link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />

@@ -13,17 +13,17 @@ trait ServiceCategory
      * 
      * @return App\Models\User $user
      */
-    public function create( $data)
+    public function createCategory( $data)
     {
         $data = Category::create($data);
         return $data;
     }
-    public function allData()
+    public function categorys()
     {
         $data = Category::all();
         return $data;
     }
-    public function findOne($id)
+    public function category($id)
     {
         $data = Category::findOrFail($id);
         return $data;

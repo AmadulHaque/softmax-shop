@@ -21,7 +21,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = $this->allData();
+        $brands = $this->brands();
         return view('pages.Brand',compact('brands'));
     }
 
@@ -40,7 +40,7 @@ class BrandController extends Controller
             $file->move(public_path('images/'),$filename);
             $data['image'] = 'images/'.$filename;
         }
-        $this->create($data);
+        $this->createBrand($data);
         return new SuccessResource($data);
     }
 
@@ -50,8 +50,8 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        $brands =  $this->allData();
-        $data = $this->findOne($id);
+        $brands =  $this->brands();
+        $data = $this->brand($id);
         return view('components.brand.edit',compact('data','brands'));  
     }
 

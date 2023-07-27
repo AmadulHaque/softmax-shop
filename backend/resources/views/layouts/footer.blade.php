@@ -17,6 +17,7 @@
 <script src='../assets/plugins/jquery-knob/excanvas.js'></script>
 <script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
 <script src="../assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="../assets/plugins/editor/editor.js"></script> 
 <!--app JS-->
 <script src='../assets/js/app.js'></script>
 <script src='../assets/js/sweetalert2.js'></script>
@@ -32,4 +33,4 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
+<script src="../assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>

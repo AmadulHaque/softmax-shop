@@ -17,11 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorys = $this->allData();
+        $categorys = $this->categorys();
         return view('pages.Category',compact('categorys'));
     }
-
- 
     /**
      * Store a newly created resource in storage.
      */
@@ -36,18 +34,16 @@ class CategoryController extends Controller
             $file->move(public_path('images/'),$filename);
             $data['image'] = 'images/'.$filename;
         }
-        $this->create($data);
+        $this->createCategory($data);
         return new SuccessResource($data);
     }
-
-
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
-        $categorys =  $this->allData();
-        $data = $this->findOne($id);
+        $categorys =  $this->categorys();
+        $data = $this->category($id);
         return view('components.category.edit',compact('data','categorys'));  
     }
 

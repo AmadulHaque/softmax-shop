@@ -18,7 +18,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = $this->allData();
+        $units = $this->units();
         return view('pages.Unit',compact('units'));
     }
 
@@ -29,7 +29,7 @@ class UnitController extends Controller
     public function store(AddRequest $request)
     {
         $data = $request->validated();
-        $this->create($data);
+        $this->createUnit($data);
         return new SuccessResource($data);
     }
 
@@ -38,8 +38,8 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        $units =  $this->allData();
-        $data = $this->findOne($id);
+        $units =  $this->units();
+        $data = $this->unit($id);
         return view('components.unit.edit',compact('data','units'));  
     }
 

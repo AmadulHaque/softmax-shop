@@ -12,17 +12,17 @@ trait ServiceUnit
      * 
      * @return App\Models\User $user
      */
-    public function create($data)
+    public function createUnit($data)
     {
         $data = Unit::create($data);
         return $data;
     }
-    public function allData()
+    public function units()
     {
         $data = Unit::all();
         return $data;
     }
-    public function findOne($id)
+    public function unit($id)
     {
         $data = Unit::findOrFail($id);
         return $data;

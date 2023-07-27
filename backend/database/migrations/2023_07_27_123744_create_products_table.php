@@ -16,20 +16,24 @@ return new class extends Migration
             $table->string('title'); 
             $table->string('thumbnail');
             $table->string('images')->nullable();
-            $table->longText('summery');
-            $table->longText('description');
-            $table->string('category_id');
-            $table->string('brand_id');
-            $table->string('unit_id');
-            $table->string('size');
-            $table->string('color');
-            $table->string('color');
+            $table->longText('summery')->nullable();
+            $table->longText('description')->nullable();
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('brand_id');
+            $table->unsignedInteger('unit_id');
+            $table->string('size')->nullable();
+            $table->string('color')->nullable();
+            $table->unsignedInteger('qty')->nullable();
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('offer_price')->nullable();
             $table->string('slug')->unique(); 
-            $table->longText('tags'); 
+            $table->longText('tags')->nullable(); 
+            $table->longText('meta_title')->nullable();
+            $table->longText('meta_keyword')->nullable();
+            $table->longText('meta_desc')->nullable();
             $table->enum('status', [1,0])->default(1); 
             $table->enum('trending', [1,0])->default(0); 
             $table->timestamps();
-            $table->foreign('parent_category')->references('id')->on('categories')->onDelete('set null');
         });
     }
 

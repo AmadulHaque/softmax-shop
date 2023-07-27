@@ -165,3 +165,9 @@
     display: block;
     font-weight: bolder;
 }
+.fr-box .fr-basic .fr-top {
+    z-index: 1 !important;
+}
+.imageuploadify{
+    min-height:auto !important
+}
