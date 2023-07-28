@@ -28,10 +28,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
-            $file = $request->file('image');
-            @unlink(public_path($data->image));
-            $filename = 'category_'.date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('images/'),$filename);
+            $filename =  uploadSingleImage($request->file('image') ,'category');
             $data['image'] = 'images/'.$filename;
         }
         $this->createCategory($data);
@@ -55,10 +52,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
-            $file = $request->file('image');
-            @unlink(public_path($category->image));
-            $filename = 'category_'.date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('images/'),$filename);
+            $filename =  uploadSingleImage($request->file('image') ,'category', $category->image);
             $data['image'] = 'images/'.$filename;
         }
         $category->update($data);

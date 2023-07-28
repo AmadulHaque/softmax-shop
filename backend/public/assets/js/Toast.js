@@ -25,7 +25,7 @@ function ErrorToastFun(text){
         newWindow: true,
         close: true,
         gravity: "top", 
-        position: "center", 
+        position: "right", 
         stopOnFocus: true, 
         style: {
             background: '#fff',

@@ -19,7 +19,7 @@ trait ServiceBrand
     }
     public function brands()
     {
-        $data = Brand::all();
+        $data = Brand::latest()->get();
         return $data;
     }
     public function brand($id)

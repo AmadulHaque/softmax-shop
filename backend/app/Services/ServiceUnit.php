@@ -19,7 +19,7 @@ trait ServiceUnit
     }
     public function units()
     {
-        $data = Unit::all();
+        $data = Unit::latest()->get();
         return $data;
     }
     public function unit($id)

@@ -20,7 +20,7 @@ trait ServiceCategory
     }
     public function categorys()
     {
-        $data = Category::all();
+        $data = Category::latest()->get();
         return $data;
     }
     public function category($id)

@@ -12,15 +12,18 @@
       <hr>
       <div class="form-body mt-4">
         <div class="row">
-          <div class="data-table col-12">
+          <div class="data-table  col-12">
             <div class="table-responsive">
                 <x-product.table :products="$products"/>
             </div>
           </div>
           <div class="add-product d-none col-12">
-            <div class="row">
-                <x-product.form />
-            </div>  
+            <form id="formPost" method="POST" >
+                @csrf 
+                <div class="row">
+                    <x-product.form :categorys="$categorys" :brands="$brands" :units="$units" />
+                </div>
+            </form>  
           </div>
         </div>
       </div>
@@ -41,25 +44,23 @@
 
 @endsection()
 @push('js')
-
-
 <script>
 var editor = new FroalaEditor('#editor');
+
 $(document).ready(function() {
     $('#table-load').DataTable();
-    // table = $('#table-load').DataTable({
-    //         stateSave: true,
-    //         retrieve: true,
-    //         responsive: true,
-    //         processing: true,
-    //     });
 
-    $('#image-uploadify').imageuploadify();
-    $('.bxs-cloud-upload').addClass('d-none');
-    $('.imageuploadify-message').addClass('d-none');
 
+    $('#fr-logo').addClass('d-none');
+    $('#thumbnail').change(function(e){
+        var reader = new FileReader();
+        reader.onload = function(e){
+            $('#shoThumbnail').attr('src',e.target.result);
+        }
+        reader.readAsDataURL(e.target.files['0']);
+	});
     
-    $(document).on('submit','#form',function(e){
+    $(document).on('submit','#formPost',function(e){
         e.preventDefault()
         let formData = new FormData($(this)[0]);
         loaderShow();
@@ -73,6 +74,7 @@ $(document).ready(function() {
             contentType:false,
             processData:false,
             success: function(res){
+                console.log(res);
                 loaderHide();
                 if (res.success==false) {
                     $.each(res.errors, function(key, item){
@@ -80,9 +82,8 @@ $(document).ready(function() {
                     })
                 }else{
                     SuccessToastFun('Caegory Add Success!');
-                    $('#form')[0].reset();
-                    //   location.reload();
-                    $('.table').load(location.href+' .table')
+                    $('#formPost')[0].reset();
+                    location.reload();
                 }
             },
             error:function (response){
@@ -90,7 +91,6 @@ $(document).ready(function() {
                 console.log(response);
             }
         });
-        console.log(formData);
     })
 
     $(document).on('click','.edit',function(e){

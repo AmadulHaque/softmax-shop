@@ -34,10 +34,7 @@ class BrandController extends Controller
         $data = $request->validated();
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
-            $file = $request->file('image');
-            @unlink(public_path('images/'.$data->image));
-            $filename = 'category_'.date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('images/'),$filename);
+            $filename =  uploadSingleImage($request->file('image') ,'brand');
             $data['image'] = 'images/'.$filename;
         }
         $this->createBrand($data);
@@ -60,13 +57,8 @@ class BrandController extends Controller
      */
     public function update(UpdateRequest $request, Brand $brand)
     {
-        $data = $request->validated();
-        $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
-            $file = $request->file('image');
-            @unlink(public_path($brand->image));
-            $filename = 'brand_'.date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('images/'),$filename);
+            $filename =  uploadSingleImage($request->file('image') ,'brand',$brand->image);
             $data['image'] = 'images/'.$filename;
         }
         $brand->update($data);
