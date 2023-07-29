@@ -12,4 +12,16 @@ class HomeController extends Controller
     {
         return view('pages.Dashboard');    
     }
+
+    public function ImgRemove(Request $request)
+    {
+        @unlink(public_path($request->url));
+        return response()->json(
+            ['status'=>200,'message' => 'Successfully Product Image deleted.']
+        );
+    }
+    
+
+
+
 }

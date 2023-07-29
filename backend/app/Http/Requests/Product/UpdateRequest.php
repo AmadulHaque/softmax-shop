@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Product;
 
 use App\Http\Resources\ErrorResource;
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,11 +27,24 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:20|unique:categories,name,'.$this->id,
-            'image'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'category_style' => 'required',
-            'parent_category' => 'nullable',
-            'status' => 'required',
+            'title' => 'required|string|unique:products,title,'.$this->id,
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'summery' => 'required|string',
+            'description'=> 'required',
+            'category_id' => 'required|numeric',
+            'brand_id'=> 'required|numeric',
+            'unit_id'=> 'required|numeric',
+            'qty' => 'nullable|numeric',
+            'price' => 'required|numeric',
+            'offer_price' => 'nullable|numeric',
+            'meta_title' => 'nullable|string',
+            'meta_keyword' => 'nullable',
+            'tags' => 'nullable',
+            'size' => 'nullable',
+            'color' => 'nullable',
+            'meta_desc' => 'nullable|string',
+            'status' => 'nullable',
+            'trending' => 'nullable',
         ];
     }
     /**

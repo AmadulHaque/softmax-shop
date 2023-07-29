@@ -5,8 +5,13 @@
 {{-- @viteReactRefresh
 @vite(['resources/js/app.js','resources/css/app.css']) --}}
 
-<script src="../assets/js/Toast.js"></script> 
-<body>
+<script src="{{ asset('assets/js/Toast.js') }}"></script>
+	<!-- Toast -->
+
+<body class="body">
+	<link href="{{ asset('assets/plugins/Toast/Toast.css') }}" rel="stylesheet" />
+	<script src="{{ asset('assets/plugins/Toast/Toast.js') }}"></script> 
+
 	<!--wrapper-->
 	<div class="wrapper">
 
@@ -54,7 +59,5 @@
 		})
 	</script>
 	@stack('js')
-
-	
 </body>
 </html>

@@ -55,21 +55,14 @@
                 @endphp
                 <x-forms.select :options="$options" :selected="''" :ovalue="'id'" :otext="'name'" :name="'unit_id'" :label="'Unit'" :id="''" :class="'form-control'" />
             </div>
-            <div class="col-md-12">
-                <label for="" class="form-label">Size</label>
-                <select name="size[]" class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                </select>
+            <div class="col-12">
+                <label for="inputProductTags" class="form-label">Product Size</label>
+                <input type="text" class="form-control" name="size" id="inputProductTags" data-role="tagsinput" >
             </div>
-            <div class="col-md-12">
-                <label for="" class="form-label">Size</label>
-                <select name="color[]" class="multiple-select" data-placeholder="Choose anything" multiple="multiple" >
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                </select>
+            <div class="col-12">
+                <label for="inputProductTags" class="form-label">Product color</label>
+                <input type="text" class="form-control" name="color" id="inputProductTags" data-role="tagsinput" >
             </div>
-
             <div class="col-12">
                 @php
                     $options =$categorys;

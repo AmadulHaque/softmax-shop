@@ -40,6 +40,8 @@ class AddRequest extends FormRequest
             'meta_title' => 'nullable|string',
             'meta_keyword' => 'nullable',
             'tags' => 'nullable',
+            'size' => 'nullable',
+            'color' => 'nullable',
             'meta_desc' => 'nullable|string',
             'status' => 'nullable',
             'trending' => 'nullable',

@@ -30,17 +30,6 @@
     </div>
 </div>
 
-{{-- edit modal --}}
-<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id="FormValue" class="modal-body">
-               
-            </div>
-        </div>
-    </div>
-</div>
-
 
 @endsection()
 @push('js')
@@ -78,10 +67,10 @@ $(document).ready(function() {
                 loaderHide();
                 if (res.success==false) {
                     $.each(res.errors, function(key, item){
-                        ErrorToastFun(item)
+                        ToastMessage("error",item,3000,'top-center');
                     })
                 }else{
-                    SuccessToastFun('Caegory Add Success!');
+                    ToastMessage("success","Product Add Success!",3000,'top-center');
                     $('#formPost')[0].reset();
                     location.reload();
                 }
@@ -92,62 +81,7 @@ $(document).ready(function() {
             }
         });
     })
-
-    $(document).on('click','.edit',function(e){
-        e.preventDefault()
-        let id = $(this).data('id');
-        loaderShow();
-        $.ajax({
-            type:'get',
-            url: '/page/product/'+id,
-            success: function(res){
-                loaderHide();
-                $('#FormValue').html(res);
-                $('#EditModal').modal('show')
-            },
-            error:function (response){
-                console.log(response);
-                loaderHide();
-            }
-        });
-    })
-
-    $(document).on('submit','#UpdateForm',function(e){
-        e.preventDefault()
-        let id = $(this).data('id');
-        let formData = new FormData($(this)[0]);
-        loaderShow();
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-            type:'post',
-            url: '/page/product/'+id,
-            data:formData,
-            contentType:false,
-            processData:false,
-            success: function(res){
-                loaderHide();
-                if (res.success==false) {
-                    $.each(res.errors, function(key, item){
-                        ErrorToastFun(item)
-                    })
-                }else{
-                    $('#EditModal').modal('hide')
-                    SuccessToastFun('Caegory Update Success!');
-                    $('#UpdateForm')[0].reset();
-                    // location.reload();
-                    $('.table').load(location.href+' .table')
-                }
-            },
-            error:function (response){
-                loaderHide();
-                console.log(response);
-            }
-        });
-
-    })
-
+ 
     $(document).on('click', '.remove', function(e) {
         e.preventDefault();
         let id = $(this).data('id');
