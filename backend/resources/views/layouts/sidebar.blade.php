@@ -31,6 +31,16 @@
 						<li> <a href="/page/brand"  ><i class="bx bx-right-arrow-alt"></i>Brand</a></li>
 						<li> <a href="/page/unit"  ><i class="bx bx-right-arrow-alt"></i>Unit</a></li>
 						<li> <a href="/page/product"  ><i class="bx bx-right-arrow-alt"></i>Product</a></li>
+						
+						<li> <a href="#"  ><i class="bx bx-right-arrow-alt"></i>------</a></li>
+						<li> <a href="/page"  ><i class="bx bx-right-arrow-alt"></i>Product-Details</a></li>
+						<li> <a href="/page/pdimporant"  ><i class="bx bx-right-arrow-alt"></i>PD-imporant</a></li>
+						<li> <a href="/page"  ><i class="bx bx-right-arrow-alt"></i>PD-Learn</a></li>
+						<li> <a href="/page"  ><i class="bx bx-right-arrow-alt"></i>Book Review</a></li>
+						<li> <a href="/page"  ><i class="bx bx-right-arrow-alt"></i>Book News</a></li>
+						<li> <a href="/page"  ><i class="bx bx-right-arrow-alt"></i>Gift</a></li>
+						<li> <a href="/page"  ><i class="bx bx-right-arrow-alt"></i>QA-Manage</a></li>
+
 					</ul>
 				</li>
 

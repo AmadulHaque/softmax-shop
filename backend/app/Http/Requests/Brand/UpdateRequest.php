@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:20|unique:brands,name,'.$this->id,
+            'name' => 'required|string|min:2|max:200|unique:brands,name,'.$this->id,
             'image'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required',
         ];

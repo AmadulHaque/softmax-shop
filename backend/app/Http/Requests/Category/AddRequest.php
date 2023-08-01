@@ -27,7 +27,7 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:20|unique:categories',
+            'name' => 'required|string|min:2|max:200|unique:categories',
             'image'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'category_style' => 'required',
             'parent_category' => 'nullable',

@@ -27,7 +27,7 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:20|unique:units',
+            'name' => 'required|string|min:2|max:200|unique:units',
             'status' => 'required',
         ];
     }

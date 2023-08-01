@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Brand;
+namespace App\Http\Requests\ProductDetailImportant;
 
 use App\Http\Resources\ErrorResource;
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,8 +27,7 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:200|unique:brands',
-            'image'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'title' => 'required|string|min:2|max:200|unique:pd_impotrants',
             'status' => 'required',
         ];
     }

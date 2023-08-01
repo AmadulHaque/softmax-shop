@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Brand;
+namespace App\Http\Requests\ProductDetailImportant;
 
 use App\Http\Resources\ErrorResource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-class AddRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,7 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:200|unique:brands',
-            'image'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'title' => 'required|string|min:2|max:200|unique:pd_impotrants,title,'.$this->id,
             'status' => 'required',
         ];
     }

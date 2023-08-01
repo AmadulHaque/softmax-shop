@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductDetail extends Model
+class BookReview extends Model
 {
-    use HasFactory;
-    protected $guarded = [];
-
+    use HasFactory;   
+     protected $guarded = [];
 }
