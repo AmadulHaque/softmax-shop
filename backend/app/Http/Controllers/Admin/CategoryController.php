@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
             $filename =  uploadSingleImage($request->file('image') ,'category');
-            $data['image'] = 'images/'.$filename;
+            $data['image'] =  $filename;
         }
         $this->createCategory($data);
         return new SuccessResource($data);
@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
             $filename =  uploadSingleImage($request->file('image') ,'category', $category->image);
-            $data['image'] = 'images/'.$filename;
+            $data['image'] = $filename;
         }
         $category->update($data);
         return new SuccessResource($data);

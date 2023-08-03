@@ -9,13 +9,12 @@ function sluguse($value) {
 
 
 
-
 function uploadSingleImage(UploadedFile $file,$name,$oldPath=null)
 {
     @unlink(public_path($oldPath));
     $filename = $name.'_'.uniqid() . '.' . $file->getClientOriginalExtension();
-    $file->move(public_path('images/'),$filename);
-    return $filename;
+    $file->move(public_path('images/'.$name.'/'),$filename);
+    return 'images/'.$name.'/'.$filename;
 }
 
 function uploadMultipleImages(array $files,$name,$oldPath=null)
@@ -27,8 +26,8 @@ function uploadMultipleImages(array $files,$name,$oldPath=null)
         // Generate a unique filename for each image
         $filename = $name.'_'.uniqid() . '.' . $file->getClientOriginalExtension();
         // Move each image to the specified destination path
-        $file->move(public_path('images/'),$filename);
-        $uploadedImageNames[] = 'images/'.$filename;
+        $file->move(public_path('images/'.$name.'/'),$filename);
+        $uploadedImageNames[] = 'images/'.$name.'/'.$filename;
     }
     return $uploadedImageNames;
 }

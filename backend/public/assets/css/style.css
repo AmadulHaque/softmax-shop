@@ -171,3 +171,10 @@
 .imageuploadify{
     min-height:auto !important
 }
+
+.btn-group-sm > .btn, .btn-sm {
+	padding: 0.1rem 0.2rem;
+	font-size: .875rem;
+	border-radius: .2rem;
+	border: none !important;
+}

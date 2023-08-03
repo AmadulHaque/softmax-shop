@@ -16,7 +16,7 @@ class BrandController extends Controller
 {
     use ServiceBrand;
     
-  /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -25,7 +25,6 @@ class BrandController extends Controller
         return view('pages.Brand',compact('brands'));
     }
 
- 
     /**
      * Store a newly created resource in storage.
      */
@@ -35,7 +34,7 @@ class BrandController extends Controller
         $data['slug'] = sluguse($data['name']);
         if ($request->file('image')) {
             $filename =  uploadSingleImage($request->file('image') ,'brand');
-            $data['image'] = 'images/'.$filename;
+            $data['image'] =  $filename;
         }
         $this->createBrand($data);
         return new SuccessResource($data);
@@ -57,9 +56,10 @@ class BrandController extends Controller
      */
     public function update(UpdateRequest $request, Brand $brand)
     {
+        $data = $request->validated();
         if ($request->file('image')) {
             $filename =  uploadSingleImage($request->file('image') ,'brand',$brand->image);
-            $data['image'] = 'images/'.$filename;
+            $data['image'] = $filename;
         }
         $brand->update($data);
         return new SuccessResource($data);

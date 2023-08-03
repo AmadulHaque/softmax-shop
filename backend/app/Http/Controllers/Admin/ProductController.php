@@ -36,7 +36,7 @@ class ProductController extends Controller
         $data['slug'] = sluguse($data['title']);
         if ($request->file('thumbnail')) {
             $filename =  uploadSingleImage($request->file('thumbnail') ,'product');
-            $data['thumbnail'] = 'images/'.$filename;
+            $data['thumbnail'] = $filename;
         }
         if ($request->file('images')) {
             $uploadedImageNames = uploadMultipleImages($request->file('images'),'product');
@@ -68,7 +68,7 @@ class ProductController extends Controller
         $data['slug'] = sluguse($data['title']);
         if ($request->file('thumbnail')) {
             $filename =  uploadSingleImage($request->file('thumbnail') ,'product');
-            $data['thumbnail'] = 'images/'.$filename;
+            $data['thumbnail'] = $filename;
         }
         if ($request->old_images) {
             $old_image = implode(',',$request->old_images);
