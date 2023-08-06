@@ -1,4 +1,11 @@
 <div class="row g-3">
+    
+    <div class="col-6">
+        @php
+            $options = $product;
+        @endphp
+        <x-forms.select :options="$options" :selected="''" :ovalue="'id'" :otext="'title'" :name="'product_id'" :label="'Product'" :id="''" :class="'form-control'" />
+    </div>
 
     <div class="col-6">
         <x-forms.input :type="'text'" :value="''"  :name="'title'" :label="'Title'" :id="''" :placeholder="'title'" :class="'form-control'" />

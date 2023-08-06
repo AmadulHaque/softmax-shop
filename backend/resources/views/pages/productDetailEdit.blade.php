@@ -24,7 +24,12 @@
                 <input type="hidden" name="id" value="{{ $data->id }}">
                
                 <div class="row g-3">
-
+                    <div class="col-6">
+                        @php
+                            $options = $product;
+                        @endphp
+                        <x-forms.select :options="$options" :selected="$data->product_id" :ovalue="'id'" :otext="'title'" :name="'product_id'" :label="'Product'" :id="''" :class="'form-control'" />
+                    </div>
                     <div class="col-6">
                         <x-forms.input :type="'text'" :value="$data->title"  :name="'title'" :label="'Title'" :id="''" :placeholder="'title'" :class="'form-control'" />
                     </div>
@@ -220,7 +225,6 @@ $(document).ready(function() {
         });
 
     })
-
 
     $('#PD_image_one').change(function(e){
         var reader = new FileReader();

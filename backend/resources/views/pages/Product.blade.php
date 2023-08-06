@@ -99,9 +99,9 @@ $(document).ready(function() {
                     success: function(res){
                         loaderHide();
                         if (res.success==false) {
-                            ErrorToastFun(res.message)
+                            ToastMessage("error",res.message,3000,'top-center');
                         }else{
-                            SuccessToastFun(res.message);
+                            ToastMessage("success",res.message,3000,'top-center');
                             $('.table').load(location.href+' .table')
                         }
                     },

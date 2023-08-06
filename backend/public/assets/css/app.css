@@ -218,13 +218,10 @@ a {
 	padding: 8px 15px 8px 45px
 }
 
-.sidebar-wrapper .metismenu .mm-active>a,
-.sidebar-wrapper .metismenu a:active,
-.sidebar-wrapper .metismenu a:focus,
-.sidebar-wrapper .metismenu a:hover {
-	color: #0d6efd;
+.sidebar-wrapper .metismenu .mm-active > a, .sidebar-wrapper .metismenu a:active, .sidebar-wrapper .metismenu a:focus, .sidebar-wrapper .metismenu a:hover {
+	color: #ff7d01;
 	text-decoration: none;
-	background: rgb(13 110 253 / .12)
+	background: rgba(255, 129, 0, 0.09);
 }
 
 .menu-label {

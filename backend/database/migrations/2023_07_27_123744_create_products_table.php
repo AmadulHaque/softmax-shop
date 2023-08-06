@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('unit_id');
             $table->string('size')->nullable();
             $table->string('color')->nullable();
-            $table->unsignedInteger('qty')->nullable();
+            $table->double('qty')->default('0');
             $table->unsignedInteger('price');
             $table->unsignedInteger('offer_price')->nullable();
             $table->string('slug')->unique(); 

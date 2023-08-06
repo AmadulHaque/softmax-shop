@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductDetail\AddRequest;
 use App\Http\Requests\ProductDetail\UpdateRequest;
+use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\BookNews;
 use App\Models\BookReview;
@@ -20,6 +21,7 @@ class ProductDetailController extends Controller
     
     public function index()
     {
+        $product = Product::all();
         $datas = ProductDetail::all();
         $BookNews = BookNews::all();
         $BookReview = BookReview::all();
@@ -27,7 +29,7 @@ class ProductDetailController extends Controller
         $PdImpotrant = PdImpotrant::all();
         $PdLearn = PdLearn::all();
         $QuationAns = QuationAns::all();
-        return view('pages.ProductDetail',compact('datas','BookNews','BookReview','Gift','PdImpotrant','PdLearn','QuationAns'));
+        return view('pages.ProductDetail',compact('datas','product','BookNews','BookReview','Gift','PdImpotrant','PdLearn','QuationAns'));
     }
     public function store(AddRequest $request)
     {
@@ -70,6 +72,7 @@ class ProductDetailController extends Controller
    
     public function show($id)
     {
+        $product = Product::all();
         $booknews = BookNews::all();
         $bookreview = BookReview::all();
         $gift = Gift::all();
@@ -77,7 +80,7 @@ class ProductDetailController extends Controller
         $pdlearn = PdLearn::all();
         $quationans = QuationAns::all();
         $data =ProductDetail::findOrFail($id);
-        return view('pages.productDetailEdit',compact('data','booknews','bookreview','gift','pdimpotrant','pdlearn','quationans'));  
+        return view('pages.productDetailEdit',compact('data','product','booknews','bookreview','gift','pdimpotrant','pdlearn','quationans'));  
     }
 
     public function update(UpdateRequest $request, ProductDetail $ProductDetail)

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Cart;
 class HomeController extends Controller
 {
     //
@@ -19,6 +19,11 @@ class HomeController extends Controller
         return response()->json(
             ['status'=>200,'message' => 'Successfully Product Image deleted.']
         );
+    }
+    public function CartRemove($id)
+    {
+       Cart::where('id',$id)->delete();
+       return true;
     }
     
 

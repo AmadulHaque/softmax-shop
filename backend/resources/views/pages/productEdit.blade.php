@@ -79,9 +79,9 @@
                                 <div class="col-md-6">
                                     <x-forms.input :type="'number'" :value="$data->offer_price"  :name="'offer_price'" :label="'Offer Price'" :id="''" :placeholder="'00.00'" :class="'form-control'" />
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <x-forms.input :type="'number'" :value="$data->qty"  :name="'qty'" :label="'Quantity'" :id="''" :placeholder="'Quantity..!'" :class="'form-control'" />
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6">
                                     @php
                                         $options = $units;

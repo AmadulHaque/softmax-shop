@@ -27,6 +27,7 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
+            'product_id' => 'required|string|max:200|unique:product_details',
             'title' => 'required|string|min:2|max:200|unique:product_details',
             'sub_title' => 'nullable',
             'video_one_url' => 'nullable',

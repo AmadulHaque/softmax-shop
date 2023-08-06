@@ -27,6 +27,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'product_id' => 'required|unique:product_details,product_id,'.$this->id,
             'title' => 'required|string|min:2|max:200|unique:product_details,title,'.$this->id,
             'sub_title' => 'nullable',
             'video_one_url' => 'nullable',

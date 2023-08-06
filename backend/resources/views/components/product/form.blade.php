@@ -46,9 +46,9 @@
             <div class="col-md-6">
                 <x-forms.input :type="'number'" :value="''"  :name="'offer_price'" :label="'Offer Price'" :id="''" :placeholder="'00.00'" :class="'form-control'" />
             </div>
-            <div class="col-md-6">
-                <x-forms.input :type="'number'" :value="''"  :name="'qty'" :label="'Quantity'" :id="''" :placeholder="'Quantity..!'" :class="'form-control'" />
-            </div>
+            {{-- <div class="col-md-6"> --}}
+                {{-- <x-forms.input :type="'number'" :value="''"  :name="'qty'" :label="'Quantity'" :id="''" :placeholder="'Quantity..!'" :class="'form-control'" /> --}}
+            {{-- </div> --}}
             <div class="col-md-6">
                 @php
                     $options = $units;

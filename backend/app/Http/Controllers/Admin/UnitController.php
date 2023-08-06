@@ -13,9 +13,6 @@ use App\Models\Unit;
 class UnitController extends Controller
 {
     use ServiceUnit;
-  /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $units = $this->units();

@@ -19,7 +19,7 @@
             <div class="border border-3 p-4 rounded">
                 <form id="form" method="post">
                     @csrf
-                    <x-ProductDetail.form   :booknews="$BookNews" :bookreview="$BookReview" :gift="$Gift" :pdimpotrant="$PdImpotrant" :pdlearn="$PdLearn" :quationans="$QuationAns"/>
+                    <x-ProductDetail.form :product="$product"   :booknews="$BookNews" :bookreview="$BookReview" :gift="$Gift" :pdimpotrant="$PdImpotrant" :pdlearn="$PdLearn" :quationans="$QuationAns"/>
                 </form>
             </div>
           </div>
