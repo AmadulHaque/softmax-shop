@@ -57,6 +57,8 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/pos/cart/list/{id}', [PosController::class, 'CartList']);
     Route::get('/pos/carts', [PosController::class, 'PosCartList']);
     Route::get('/pos/cart/update', [PosController::class, 'PosCartUpdate']);
+    Route::get('/pos/place/order', [PosController::class, 'placePosorder']);
+    Route::post('/pos/place/order/post', [PosController::class, 'OrderPosPost']);
 
     
 

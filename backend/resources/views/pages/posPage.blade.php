@@ -41,22 +41,24 @@
                     <div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span></div>
                 </div>
             </div>
-
         </div>
+
         <div class="col-12 col-md-5">
             <div class="card p-3">
                 <div class="form-body">
                     <form action="" method="post">
                         @csrf
-                        <div class="mb-3">
-                            <select class="form-control single-select">
+                        <div class="mb-3 d-flex">
+                            <select id="customer_id"  style="width: 85%" class="form-control single-select">
                                 <option value="" selected disabled>-- select Customer --</option>
                                 @foreach ($customers as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
                             </select>
-                        </div>
+                            <button   data-bs-toggle="modal" data-bs-target="#shippingModal"  style="width: 12%;margin-left: 10px;"  type="button" class="btn btn-danger " ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck text-white"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></button>
 
+                        </div>
+                 
                         <div class="loader-product-div">
                             <div class="cart-list">
                                 <ul id="cartAll" class="list-group">
@@ -72,7 +74,7 @@
                             <div class="price-control">
                                 <ul class="list-group">
 									<li class="c-list-st pt-3 list-group-item d-flex justify-content-between align-items-center">Sub-Total	<span class="text-black p-2">৳ <span class="Sub_Total"></span> </span></li>
-									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center">Tax <span class="text-black p-2">৳ 00</span></li>
+									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center">Tax <span class="text-black p-2">৳ 00</span></li> <input type="hidden" id="tax" value="0" >
 									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center ">Shipping <span class="text-black p-2">৳ <span class="shipping" >00</span></span></li>
 									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center ">Discount <span class="text-black p-2">৳ <span class="discount">00</span></span></li>
                                     <h4 class="d-block m-1 pt-2">
@@ -111,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="btn-group " style="float: right;">
-                                <button type="button" class="mt-2  btn btn-primary btn-block" >Place Order</button>
+                                <button type="button" id="PlaceOrder" data-bs-toggle="modal" data-bs-target="#PlaceOrderModal" class="mt-2  btn btn-primary btn-block" >Place Order</button>
                             </div>
                         </div>
                     </form>
@@ -121,6 +123,90 @@
       </div>
 </div>
 
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal top fade" id="PlaceOrderModal"  aria-labelledby="exampleModalLabel"  tabindex="-1"  aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+    <div class="modal-dialog modal-xl  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Order Summary</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="orderSubmit" method="post">
+            @csrf
+            <div id="BodyLoad" class="modal-body loader-product-div">
+                <div class="spinner-border m-auto d-block" role="status"> <span class="visually-hidden">Loading...</span></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit"  class="btn btn-base-1 btn-success">Confirm Order</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal top fade" id="shippingModal"  aria-labelledby="exampleModalLabel"  tabindex="-1"  aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <form id="shipping_form" method="POST">
+            <div id="" class="modal-body">
+                <div class="form-group mb-2">
+                <div class="row">
+                    <label class="col-sm-2 control-label" for="name">Name</label>
+                    <div class="col-sm-10">
+                    <input type="text" placeholder="Name" id="name" name="name" class="form-control" required="">
+                    </div>
+                </div>
+                </div>
+                <div class="form-group mb-2">
+                <div class=" row">
+                    <label class="col-sm-2 control-label" for="email">Email</label>
+                    <div class="col-sm-10">
+                    <input type="email" placeholder="Email" id="email" name="email" class="form-control" required="">
+                    </div>
+                </div>
+                </div>
+                <div class="form-group mb-2">
+                <div class=" row">
+                    <label class="col-sm-2 control-label" for="address">Address</label>
+                    <div class="col-sm-10">
+                    <textarea placeholder="Address" id="address" name="address" class="form-control" required=""></textarea>
+                    </div>
+                </div>
+                </div>
+
+                <div class="form-group mb-2">
+                <div class=" row">
+                    <label class="col-sm-2 control-label" for="postal_code">Postal Code</label>
+                    <div class="col-sm-10">
+                    <input type="number" min="0" placeholder="Postal Code" id="postal_code" name="postal_code" class="form-control" required="">
+                    </div>
+                </div>
+                </div>
+                <div class="form-group mb-2">
+                <div class=" row">
+                    <label class="col-sm-2 control-label" for="phone">Phone</label>
+                    <div class="col-sm-10">
+                    <input type="number" min="0" placeholder="Phone" id="phone" name="phone" class="form-control" required="">
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" >Submit</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -220,12 +306,14 @@ $(document).ready(function() {
         }
         let loader = $('#cart-loader');
         let cartAll = $('#cartAll');
+        let loadCarts = $('.loadCarts');
         loader.removeClass('d-none');
         $.ajax({
             type:'get',
             url: '/page/pos/cart/list/'+id,
             success: function(data){
                 cartAll.html(data);
+                loadCarts.html(data);
                 loader.addClass('d-none');
                 loadAmount();
             },
@@ -241,12 +329,14 @@ $(document).ready(function() {
     function cartsList(){
         let loader = $('#cart-loader');
         let cartAll = $('#cartAll');
+        let loadCarts = $('.loadCarts');
         loader.removeClass('d-none');
         $.ajax({
             type:'get',
             url: '/page/pos/carts',
             success: function(data){
                 cartAll.html(data);
+                loadCarts.html(data);
                 loader.addClass('d-none');
                 loadAmount();
             },
@@ -257,14 +347,14 @@ $(document).ready(function() {
     }
 
     function  loadAmount(){
-        let shipping = $('#shipping').val()
-        let discount = $('#discount').val()
-        let Amount = $('#totalAmount').val()
+        let tax = Number($('#tax').val())
+        let shipping = Number($('#shipping').val())
+        let discount = Number($('#discount').val())
+        let Amount = Number($('#totalAmount').val())
         $('.shipping').html(shipping)
         $('.discount').html(discount)
         $('.Sub_Total').text(Amount)
-
-        let result = Amount + shipping - discount;
+        let result = Amount + tax +shipping - discount;
         $('#ShowTotalAmount').text(result)
     } 
 
@@ -290,13 +380,12 @@ $(document).ready(function() {
         loadAmount()
       
     });
+
     $(document).on('change', '#discount', function(e) {
         e.preventDefault();
         loadAmount()       
     });
 
-
-   
     $(document).on('click', '.remove', function(e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -320,7 +409,92 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).on('click', '#PlaceOrder', function(e) {
+        e.preventDefault();
+        $('#BodyLoad').html("");
+        let shipping = Number($('#shipping').val())
+        let discount = Number($('#discount').val())
+        let customer_id = $('#customer_id').val()
+        let  loader = `<div class="spinner-border m-auto d-block" role="status"> <span class="visually-hidden">Loading...</span></div>`;
+        var savedData = JSON.parse(localStorage.getItem("shipping")) ? JSON.parse(localStorage.getItem("shipping")) : {}; 
+        savedData['customer_id'] = customer_id;
+        savedData['shipping'] = shipping;
+        savedData['discount'] = discount;
+        $('#BodyLoad').html(loader);
+        $.ajax({
+            type:'get',
+            url: '/page/pos/place/order',
+            data:savedData,
+            success: function(data){
+                $('#BodyLoad').html(data);
+            },
+            error:function (response){
+                console.log(response);
+            }
+        });
+    });
+
+    $(document).on('submit', '#shipping_form', function(e) {
+        e.preventDefault();
+        let formData = new FormData($(this)[0]);
+        let dataObject = {};
+        formData.forEach(function(value, key){
+            dataObject[key] = value;
+        });
+        // Convert the plain object to a JSON string
+        let jsonData = JSON.stringify(dataObject);
+        // Save the JSON string to local storage with the key "shipping"
+        localStorage.setItem("shipping", jsonData);
+        ToastMessage("success","Add Success!",3000,'top-center');
+        $('#shippingModal').modal('hide')
+    });
+
+    $(document).on('change', '#PaymentType', function(e) {
+        e.preventDefault();
+        let val = $(this).val();
+        if (val=="Hand-Cash") {
+            $('#pay_number').addClass('d-none');
+        }else{
+            $('#pay_number').removeClass('d-none');
+        }
+    });
   
+
+    $(document).on('submit', '#orderSubmit', function(e) {
+        e.preventDefault();
+        let loader = $('#orderloader');
+        let formData = new FormData($(this)[0]);
+        loader.removeClass('d-none')
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url: '/page/pos/place/order/post',
+            data:formData,
+            contentType:false,
+            processData:false,
+            success: function(res){
+                console.log(res);
+                loader.addClass('d-none')
+                if (res.success==false) {
+                    $.each(res.errors, function(key, item){
+                        ToastMessage("error",item,3000,'top-center');
+                    })
+                }else{
+                    $('#PlaceOrderModal').modal('hide');
+                    ToastMessage("success","Order Add Success!",3000,'top-center');
+                    // location.href= '/';
+                }
+            },
+            error:function (response){
+                console.log(response);
+            }
+        });
+    });
+
+
 });
 </script>
 

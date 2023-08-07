@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Pos;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Order\AddRequest;
+use App\Http\Resources\SuccessResource;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Customer;
@@ -20,6 +22,20 @@ class PosController extends Controller
         $categorys = Category::where('status',1)->get();
         return view('pages.posPage',compact('brands','categorys','customers'));
     }
+
+    public function placePosorder(Request $request)
+    {
+        $carts = $this->carts();
+        $data = $request;
+        return view('components.pos.OrderPlace',compact('carts','data'));
+    }
+
+    public function OrderPosPost(AddRequest $request)
+    {
+        $data = $request->validated();
+        return new SuccessResource($data);
+    }
+
 
     public function ProductList(Request $request)
     {
@@ -52,6 +68,7 @@ class PosController extends Controller
         $carts = $this->cartStore($id);
         return view('components.pos.product_cart',compact('carts'));
     }
+    
     public function PosCartUpdate(Request $request)
     {
         $this->CartUpdate($request);
