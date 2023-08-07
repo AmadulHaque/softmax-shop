@@ -33,7 +33,8 @@ class PosController extends Controller
     public function OrderPosPost(AddRequest $request)
     {
         $data = $request->validated();
-        return new SuccessResource($data);
+        $val  = $this->OrderConfirm($request);
+        return response()->json($val);
     }
 
 

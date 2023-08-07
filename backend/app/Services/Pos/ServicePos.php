@@ -1,16 +1,16 @@
 <?php
 namespace App\Services\Pos;
 
-use App\Models\Purchase;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\OrderDetails;
 use App\Models\Cart;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 trait ServicePos
 {
- 
-
     // cart
     public function carts()
     {
@@ -48,5 +48,63 @@ trait ServicePos
         Cart::where('id',$request->id)->update($data);
         
     }
+
+
+
+    public function OrderConfirm($request)
+    {
+        // Start the transaction
+        // DB::beginTransaction();
+    
+        // try {
+            $carts = Cart::orderBy('id', 'ASC')->where('status', 'sale')->get();
+            $Order = Order::count();
+            $order_no =  $Order + 1;
+    
+            $order = new Order();
+            $order->order_no = $order_no;
+            $order->customer_id = $request->customer_id;
+            $order->pay_type = $request->pay_type;
+            $order->pay_number = $request->pay_number;
+            $order->totalAmount = $carts->sum('buying_price');
+            $order->tax = @$request->tax ? $request->tax : 0;
+            $order->shipping = $request->shipping;
+            $order->discount = $request->discount;
+            $order->ship_name = $request->ship_name;
+            $order->ship_email = $request->ship_email;
+            $order->ship_phone = $request->ship_phone;
+            $order->ship_address = $request->ship_address;
+            $order->ship_postal_code = $request->ship_postal_code;
+            $order->date = date('Y-m-d');
+            $order->status = '0';
+            $order->created_by = Auth::user()->id;
+            $order->save();
+            foreach ($carts as $value) {
+                $OrderDetails = new OrderDetails();
+                $OrderDetails->date = date('Y-m-d');
+                $OrderDetails->order_id = $order->id;
+                $OrderDetails->product_id = $value->product_id;
+                $OrderDetails->selling_qty = $value->qty;
+                $OrderDetails->unit_price = $value->unit_price;
+                $OrderDetails->selling_price = $value->buying_price;
+                $OrderDetails->status = '0';
+                $OrderDetails->save();
+            }
+            // Commit the transaction if all operations are successful
+        //     DB::commit();
+        // } catch (\Exception $e) {
+            // If an error occurs, rollback the transaction
+            // DB::rollback();
+            // You can log the error or handle it in any way you prefer
+            // For example:
+            // Log::error($e->getMessage());
+            // Return an error response or do whatever is appropriate for your use case
+            return ['message' => 'Error processing the order','status' => 500,'success'=>false];
+            
+        // }
+        // Return a success response if everything went well
+        // return response()->json(['message'=>'Order processed successfully','status' => 200 ,'success'=>true]);
+    }
+
 
 }

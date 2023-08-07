@@ -483,9 +483,13 @@ $(document).ready(function() {
                         ToastMessage("error",item,3000,'top-center');
                     })
                 }else{
-                    $('#PlaceOrderModal').modal('hide');
-                    ToastMessage("success","Order Add Success!",3000,'top-center');
-                    // location.href= '/';
+                    if (res.status==200) {
+                        $('#PlaceOrderModal').modal('hide');
+                        ToastMessage("success","Order Add Success!",3000,'top-center'); 
+                        location.href= '/';
+                    }else{
+                        ToastMessage("error",res.message,3000,'top-center');
+                    }
                 }
             },
             error:function (response){
