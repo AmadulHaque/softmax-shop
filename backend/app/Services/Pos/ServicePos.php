@@ -50,14 +50,16 @@ trait ServicePos
     }
 
 
-
     public function OrderConfirm($request)
     {
         // Start the transaction
-        // DB::beginTransaction();
-    
-        // try {
+        DB::beginTransaction();
+        try {
             $carts = Cart::orderBy('id', 'ASC')->where('status', 'sale')->get();
+            if ($carts->count() > 0) {
+            }else{
+                return ['message' => 'Product is Empty','status' => 500,'success'=>true];
+            }
             $Order = Order::count();
             $order_no =  $Order + 1;
     
@@ -89,21 +91,21 @@ trait ServicePos
                 $OrderDetails->selling_price = $value->buying_price;
                 $OrderDetails->status = '0';
                 $OrderDetails->save();
+                $value->delete();
             }
             // Commit the transaction if all operations are successful
-        //     DB::commit();
-        // } catch (\Exception $e) {
+            DB::commit();
+        } catch (\Exception $e) {
             // If an error occurs, rollback the transaction
-            // DB::rollback();
+            DB::rollback();
             // You can log the error or handle it in any way you prefer
             // For example:
             // Log::error($e->getMessage());
             // Return an error response or do whatever is appropriate for your use case
-            return ['message' => 'Error processing the order','status' => 500,'success'=>false];
-            
-        // }
+            return ['message' => 'Error processing the order','status' => 500,'success'=>true];
+        }
         // Return a success response if everything went well
-        // return response()->json(['message'=>'Order processed successfully','status' => 200 ,'success'=>true]);
+        return ['message'=>'Order processed successfully','status' => 200 ,'success'=>true];
     }
 
 

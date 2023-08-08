@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Pos\PosController;
 use App\Http\Controllers\Admin\Pos\SupplierController;
 use App\Http\Controllers\Admin\Pos\CustomerController;
 use App\Http\Controllers\Admin\Pos\PurchaseController;
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,6 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/purchase/remove/{id}', [PurchaseController::class, 'PurchaseRemove']);
     Route::get('/purchase/Approved/{id}', [PurchaseController::class, 'PurchaseApproved']);
 
-
     
     //pos
     Route::get('/pos', [PosController::class, 'index']);
@@ -59,9 +59,14 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/pos/cart/update', [PosController::class, 'PosCartUpdate']);
     Route::get('/pos/place/order', [PosController::class, 'placePosorder']);
     Route::post('/pos/place/order/post', [PosController::class, 'OrderPosPost']);
-
+    Route::post('/pos/place/order/post', [PosController::class, 'OrderPosPost']);
     
-
+    
+    // order 
+    Route::get('/order', [OrderController::class, 'Index']);
+    Route::get('/order/new', [OrderController::class, 'NewOrder']);
+    Route::get('/order/cancle', [OrderController::class, 'CancleOrder']);
+    
 
     Route::get('/remove-product/img', [HomeController::class, 'ImgRemove']);
     Route::get('/remove-cart/remove/{id}', [HomeController::class, 'CartRemove']);

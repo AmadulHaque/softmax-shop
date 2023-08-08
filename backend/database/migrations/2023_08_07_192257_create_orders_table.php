@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('order_no');
             $table->string('customer_id');
             $table->string('pay_type');
-            $table->string('pay_number');
+            $table->string('pay_number')->nullable();
             $table->integer('totalAmount');
             $table->integer('tax')->nullable();
             $table->integer('shipping')->nullable();
