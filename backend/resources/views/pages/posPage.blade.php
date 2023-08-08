@@ -73,13 +73,13 @@
                         <div class="cart-body pt-3">
                             <div class="price-control">
                                 <ul class="list-group">
-									<li class="c-list-st pt-3 list-group-item d-flex justify-content-between align-items-center">Sub-Total	<span class="text-black p-2">৳ <span class="Sub_Total"></span> </span></li>
-									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center">Tax <span class="text-black p-2">৳ 00</span></li> <input type="hidden" id="tax" value="0" >
-									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center ">Shipping <span class="text-black p-2">৳ <span class="shipping" >00</span></span></li>
-									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center ">Discount <span class="text-black p-2">৳ <span class="discount">00</span></span></li>
+									<li class="c-list-st pt-3 list-group-item d-flex justify-content-between align-items-center">Sub-Total	<span class="text-black p-2">{{ $setting->currency }} <span class="Sub_Total"></span> </span></li>
+									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center">Tax <span class="text-black p-2">{{ $setting->currency }} 0</span></li> <input type="hidden" id="tax" value="0" >
+									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center ">Shipping <span class="text-black p-2">{{ $setting->currency }} <span class="shipping" >0</span></span></li>
+									<li class="c-list-st list-group-item d-flex justify-content-between align-items-center ">Discount <span class="text-black p-2">{{ $setting->currency }} <span class="discount">0</span></span></li>
                                     <h4 class="d-block m-1 pt-2">
                                         <span style="float: left;" >Total</span>
-                                        <span style="float: right">৳ <span id="ShowTotalAmount">00</span> </span>
+                                        <span style="float: right">{{ $setting->currency }} <span id="ShowTotalAmount">00</span> </span>
                                     </h4>
                                     <hr class="m-0">
 								</ul>
@@ -486,7 +486,7 @@ $(document).ready(function() {
                     if (res.status==200) {
                         $('#PlaceOrderModal').modal('hide');
                         ToastMessage("success","Order Add Success!",3000,'top-center'); 
-                        location.href= '/';
+                        location.href= '/page/order/new';
                     }else{
                         ToastMessage("error",res.message,3000,'top-center');
                     }

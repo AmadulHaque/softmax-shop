@@ -31,6 +31,7 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">Sl</th>
+                                        <th class="text-center">thumbnail</th>
                                         <th class="text-center">Product Name</th>
                                         <th class="text-center" style="background-color: #8B008B">Current Stock</th>
                                         <th class="text-center">Quantity</th>
@@ -44,46 +45,50 @@
                                             <tr>
                                                 <input type="hidden" name="id[]" value="{{ $details->id }}">
                                                 <td class="text-center">{{ $key + 1 }}</td>
+                                                <td class="text-center"><img style="width: 50px" src="{{ asset($details->product['thumbnail']) }}" alt=""></td>
                                                 <td class="text-center">{{ $details->product['title'] }}</td>
                                                 <td class="text-center" style="background-color: #8B008B">{{ $details->product['qty'] }}</td>
                                                 <td class="text-center">{{ $details->selling_qty }}</td>
-                                                <td class="text-center">{{ $details->unit_price }}</td>
-                                                <td class="text-center">{{ $details->selling_price }}</td>
+                                                <td class="text-center">{{ $setting->currency }} {{ $details->unit_price }}</td>
+                                                <td class="text-center">{{ $setting->currency }} {{ $details->selling_price }}</td>
                                             </tr>
                                             @php $total_sum += $details->selling_price; @endphp
                                         @endforeach
                                         <tr>
-                                            <td style="background: #171717;" colspan="6"></td>
+                                            <td style="background: #171717;" colspan="7"></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                             <td colspan="2"> Sub Total </td>
-                                            <td class="text-center"> {{ $total_sum }} </td>
+                                            <td class="text-center">{{ $setting->currency }} {{ $total_sum }} </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                             <td colspan="2"> Tax </td>
-                                            <td class="text-center"> {{ $order->tax }} </td>
+                                            <td class="text-center">{{ $setting->currency }}  {{ $order->tax }} </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                             <td colspan="2"> Shipping </td>
-                                            <td class="text-center"> {{ $order->shipping }} </td>
+                                            <td class="text-center">{{ $setting->currency }}  {{ $order->shipping }} </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                             <td colspan="2"> Discount </td>
-                                            <td class="text-center"> {{ $order->discount }} </td>
+                                            <td class="text-center">{{ $setting->currency }}  {{ $order->discount }} </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3"></td>
+                                            <td colspan="4"></td>
                                             <td colspan="2"> Grand Amount </td>
-                                            <td class="text-center">{{ $total_sum }}</td>
+                                            <td class="text-center">{{ $setting->currency }} {{ $total_sum }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                @if ($order->status==1)
+                                @else
                                 <button type="submit" style="float: right" class="btn btn-success ">Order Approve </button>
-                                <a href="/page/order/new" target="_blanck" class="btn btn-danger mb-3" style="float:right;margin-right: 13px;">Back To List</a>
+                                @endif
+                                <a href="/page/order/new" class="btn btn-danger mb-3" style="float:right;margin-right: 13px;">Back To List</a>
                             </form>
                         </div>
                     </div>
@@ -122,7 +127,7 @@ $(document).ready(function() {
                 }else{
                     ToastMessage("success","Order Approve Success!",3000,'top-center');
                     $('#formPost')[0].reset();
-                    location.href = '/page/order/new';
+                    location.href = '/page/order';
                 }
             },
             error:function (response){

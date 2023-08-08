@@ -21,7 +21,7 @@
                         <p>Total Price : {{ $item->buying_price }}</p>
                     </div>
                     <div class="product-price">
-                        <p>৳ {{ $item->unit_price }}</p>
+                        <p>{{ $setting->currency }} {{ $item->unit_price }}</p>
                         <p>Quantity : {{ $item->qty }}</p>
                     </div>
                 </li>
@@ -81,26 +81,26 @@
         </div>
         <div class="d-flex justify-content-between fw-600 mb-2 opacity-70">
             <span>Total</span>
-            <span>৳  {{ $carts->sum('buying_price') }} </span>
+            <span>{{ $setting->currency }}  {{ $carts->sum('buying_price') }} </span>
         </div>
         <div class="d-flex justify-content-between fw-600 mb-2 opacity-70">
             <span>Tax</span>
-            <span>৳ 00</span>
+            <span>{{ $setting->currency }} 00</span>
         </div>
         <div class="d-flex justify-content-between fw-600 mb-2 opacity-70">
             <span>Shipping</span>
-            <span>৳  {{ $data->shipping }}</span>
+            <span>{{ $setting->currency }}  {{ $data->shipping }}</span>
         </div>
         <div class="d-flex justify-content-between fw-600 mb-2 opacity-70">
             <span>Discount</span>
-            <span>৳  {{ $data->discount }}</span>
+            <span>{{ $setting->currency }}  {{ $data->discount }}</span>
         </div>
         <div class="d-flex justify-content-between fw-600 fs-18 border-top pt-2">
             @php
                 $amount = $carts->sum('buying_price') + $data->shipping - $data->discount;
             @endphp
             <span>Total</span>
-            <span>৳  {{ $amount }}</span>
+            <span>{{ $setting->currency }}  {{ $amount }}</span>
         </div>
     </div>
 </div>

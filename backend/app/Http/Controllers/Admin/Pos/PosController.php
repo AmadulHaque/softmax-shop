@@ -37,7 +37,6 @@ class PosController extends Controller
         return response()->json($val);
     }
 
-
     public function ProductList(Request $request)
     {
         $search = @$request->search;

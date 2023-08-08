@@ -6,8 +6,13 @@
             <th>Customer</th>
             <th>Amount</th>
             <th>Date</th>
-            <th>Status</th>
-            <th>Remove</th>
+            <th class="text-center">Status</th>
+            @isset($datas[0])
+                @if ($datas[0]['status']==1)
+                @else
+                <th>Action</th>
+                @endif
+            @endisset
         </tr>
     </thead>
     <tbody>
@@ -15,23 +20,30 @@
             <tr>
                 <td style="width:30px" >{{ $item->order_no }}</td>
                 <td style="width:30px">
-                    <a href="/page/order/approve/{{$item->id}}" target="_blanck" class="btn btn-outline-success btn-sm" data-id="15" title="Approved"><i class="fadeIn animated bx bx-link-external"></i></a>
+                    <a href="/page/order/approve/{{$item->id}}"  class="btn btn-outline-success btn-sm" data-id="15" title="Approved"><i class="fadeIn animated bx bx-link-external"></i></a>
                 </td>
                 <td>{{ $item->customer['name'] }}</td>
-                <td>{{ $item->totalAmount }}</td>
+                <td>{{ $setting->currency }} {{ $item->totalAmount }}</td>
                 <td>{{ $item->date }}</td>
-                <td>
+                <td class="text-cener">
                     @if ($item->status==1)
                         <span class="active-bg" ><i class="lni lni-checkmark-circle"></i></span>
                     @elseif($item->status==0)
-                        <span class="btn btn-warning">Pend..<div></div></span>
+                        <span class=" d-block btn btn-warning">Pend..<div></div></span>
                     @else
-                        <span class="btn btn-danger">Canc..<div></div></span>
+                        <span class="d-block btn btn-danger">Canc..<div></div></span>
                     @endif
                 </td>
-                <td>
-                    <button type="button" class="btn btn-sm btn-outline-danger  remove" data-id="{{ $item->id }}" ><i class="fadeIn animated bx bx-trash"></i></button>
-                </td>
+                @if ($item->status==1)
+                @else  
+                    <td class="text-cener" style="width:25px">
+                        @if ($item->status==0)
+                            <button type="button" class="m-auto btn  btn-danger  cancle" data-id="{{ $item->id }}" >Cancle</button>
+                        @endif
+                        <button type="button" class="m-auto btn btn-sm  btn-outline-danger  remove" data-id="{{ $item->id }}" ><i class="fadeIn animated bx bx-trash"></i></button>
+                    </td>
+                @endif
+               
             </tr>
         @endforeach
     </tbody>

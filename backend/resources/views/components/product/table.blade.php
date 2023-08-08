@@ -7,7 +7,6 @@
             <th>Brand</th>
             <th>Price</th>
             <th>Offer-P</th>
-            <th>Quantity</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -16,15 +15,13 @@
         @foreach ($products as $item)
             <tr>
                 <td>{{ $item->title }}</td>
-                <td style="width:73px" >
-                    <img class="rounded " src="{{ asset($item->thumbnail) }}"  style="width:100%"  alt="">
+                <td style="width:50px" >
+                    <img class="rounded " src="{{ asset($item->thumbnail) }}"  style="width:50px"  alt="">
                 </td>
                 <td>{{ $item->category->name }}</td>
                 <td>{{ $item->brand->name }}</td>
-                <td>{{ $item->price }}</td>
-                <td>{{ $item->offer_price }}</td>
-                <td>{{ $item->qty }}</td>
-
+                <td>{{ $setting->currency }} {{ $item->price }}</td>
+                <td>{{ $setting->currency }} {{ $item->offer_price }}</td>
                 <td>
                     @if ($item->status==1)
                         <span class="active-bg" ><i class="lni lni-checkmark-circle"></i></span>

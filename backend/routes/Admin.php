@@ -16,12 +16,14 @@ use App\Http\Controllers\Admin\Pos\SupplierController;
 use App\Http\Controllers\Admin\Pos\CustomerController;
 use App\Http\Controllers\Admin\Pos\PurchaseController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 
 Route::get('login', [AuthController::class, 'Login'])->name('Login');
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth','middleware'=>'Is_Admin'], function () {
     Route::get('/', [HomeController::class, 'Home'])->name('Home.index');
     Route::get('/page/remove-product/img', [HomeController::class, 'ImgRemove']);
 Route::group(['prefix' => 'page'], function () {
@@ -68,7 +70,16 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/order/cancle', [OrderController::class, 'CancleOrder']);
     Route::get('/order/approve/{id}', [OrderController::class, 'ApproveOrder']);
     Route::post('/order/approve/store/{id}', [OrderController::class, 'ApproveOrderStore']);
-    
+    Route::get('/order/remove/{id}', [OrderController::class, 'OrderRemove']);
+    Route::get('/order/cancle/{id}', [OrderController::class, 'OrderCancle']);
+
+    // stock
+    Route::get('/stock', [StockController::class, 'Index']);
+
+    // setting
+    Route::get('/setting', [SettingController::class, 'Index']);
+    Route::post('/setting/post', [SettingController::class, 'settingUpdate'])->name('settingUpdate');
+
 
     Route::get('/remove-product/img', [HomeController::class, 'ImgRemove']);
     Route::get('/remove-cart/remove/{id}', [HomeController::class, 'CartRemove']);

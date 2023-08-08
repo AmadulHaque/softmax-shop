@@ -15,6 +15,7 @@ trait ServiceOrder
         return $data;
     }
 
+   
     public function OrderStore($request,$id)
     {
         foreach($request->id as  $key => $val){
@@ -37,37 +38,12 @@ trait ServiceOrder
                 $product->save();
             }
             $order->save();
+
         });
+        $num = $order->ship_phone;
+        $msg = 'SoftmaxShop.com এ আপনার অর্ডারটি কনফার্ম করা হয়েছে। প্রোডাক্ট টি  সুন্দরবন কুরিয়ারের মাধ্যমে আগামী ২ থেকে ৩ কার্যদিবসের মধ্যে ডেলিভারি পাবেন ইনশা আল্লাহ । প্রয়োজনে 01739 334 500 এই নাম্বারে WhatsApp এ ম্যাসেজ করবেন।';
+        smsPost($num,$msg);
         return ['message'=>'Invoice Approve Successfully','status' => 200 ,'success'=>true];
     }
 
-
-    // public function ApprovalStore(Request $request, $id){
-        // foreach($request->selling_qty as $key => $val){
-        //     $invoice_details = InvoiceDetail::where('id',$key)->first();
-        //     $product = Product::where('id',$invoice_details->product_id)->first();
-        //     if($product->quantity < $request->selling_qty[$key]){
-        //         $notification = array( 'message' => 'Sorry you approve Maximum Value', 'alert-type' => 'error');
-        //         return redirect()->back()->with($notification);
-        //     }
-        // } // End foreach
-        // $invoice = Invoice::findOrFail($id);
-        // $invoice->updated_by = Auth::user()->id;
-        // $invoice->status = '1';
-        // DB::transaction(function() use($request,$invoice,$id){
-        //     foreach($request->selling_qty as $key => $val){
-        //      $invoice_details = InvoiceDetail::where('id',$key)->first();
-        //      $invoice_details->status = '1';
-        //      $invoice_details->save();
-        //      $product = Product::where('id',$invoice_details->product_id)->first();
-        //      $product->quantity = ((float)$product->quantity) - ((float)$request->selling_qty[$key]);
-        //      $product->save();
-        //     } // end foreach
-        //     $invoice->save();
-        // });
-        // $notification = array( 'message' => 'Invoice Approve Successfully',  'alert-type' => 'success');
-        // return redirect()->route('InvoicePendinglist')->with($notification);
-    // }
-
-   
 }

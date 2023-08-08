@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ServiceOrder;
+use App\Models\OrderDetails;
 use App\Models\Order;
 class OrderController extends Controller
 {
@@ -34,6 +35,28 @@ class OrderController extends Controller
         $datas = $this->OrderStore($request,$id);
         return response()->json($datas);
     }
+
+    public function orderRemove($id)
+    {
+        $order = Order::where('id',$id)->delete();
+        OrderDetails::where('order_id',$id)->delete();
+        return response()->json([
+            'success'=>true,
+            'message'=>"Order Delete Success"
+        ]);
+    }
+    public function OrderCancle($id)
+    {
+        $order = Order::where('id',$id)->update([
+            'status'=>2
+        ]);
+        return response()->json([
+            'success'=>true,
+            'message'=>"Order Cancle Success"
+        ]);
+    }
+
+
 
 
  

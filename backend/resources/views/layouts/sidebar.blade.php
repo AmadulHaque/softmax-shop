@@ -77,19 +77,20 @@
 						<div class="menu-title">Manage Stcok</div>
 					</a>
 					<ul>
-						<li> <a href="a"><i class="bx bx-right-arrow-alt"></i>Stcok Report</a></li>
+						<li> <a href="/page/stock"><i class="bx bx-right-arrow-alt"></i>Stcok Report</a></li>
 					</ul>
 				</li>
 
 				<li>
 					<a href="javascript:;" class="has-arrow">
-						<div class="parent-icon"><i class="lni lni-cart-full"></i></div>
-						<div class="menu-title">Manage Stcok</div>
+						<div class="parent-icon"><i class="fadeIn animated bx bx-cog"></i></div>
+						<div class="menu-title">Manage Setting</div>
 					</a>
 					<ul>
-						<li> <a href="a"><i class="bx bx-right-arrow-alt"></i>Stcok Report</a></li>
+						<li> <a href="/page/setting"><i class="bx bx-right-arrow-alt"></i>Setting</a></li>
 					</ul>
 				</li>
+
 
 
 			</ul>

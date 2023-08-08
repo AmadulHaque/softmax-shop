@@ -1,7 +1,8 @@
 <?php 
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 function sluguse($value) {
     return Str::slug($value);
@@ -31,3 +32,33 @@ function uploadMultipleImages(array $files,$name,$oldPath=null)
     }
     return $uploadedImageNames;
 }
+
+
+function smsPost($num,$msg) 
+{
+    $url = 'https://softmaxshop.com/api/admin/sms/host';
+    $response = Http::get($url);
+    if ($response->successful()) {
+        $data = $response->json();
+        $api_key = $data['sms_api_key'];
+        $from = $data['sms_api_from'];
+        $url = $data['sms_api_url'];
+        $data = [
+            'api_key' => "$api_key",
+            'from' => "$from",
+            'to' => "88$num",
+            'sms' => "$msg",
+            'unicode' => '1',
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_ENCODING, '');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        return $api_key;
+    } else {
+        return null;
+    }
+}
+

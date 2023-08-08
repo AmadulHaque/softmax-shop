@@ -31,14 +31,12 @@ $(document).ready(function() {
             if (res) {
                 loaderShow();
                 $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type:'DELETE',
-                    url: '/page/product/'+id,
+                    type:'get',
+                    url: '/page/order/remove/'+id,
                     contentType:false,
                     processData:false,
                     success: function(res){
+                        console.log(res);
                         loaderHide();
                         if (res.success==false) {
                             ToastMessage("error",res.message,3000,'top-center');
@@ -54,6 +52,34 @@ $(document).ready(function() {
                 });
             } else {
                 
+            }
+        });
+    });
+
+    $(document).on('click', '.cancle', function(e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+        loaderShow();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'get',
+            url: '/page/order/cancle/'+id,
+            contentType:false,
+            processData:false,
+            success: function(res){
+                loaderHide();
+                if (res.success==false) {
+                    ToastMessage("error",res.message,3000,'top-center');
+                }else{
+                    ToastMessage("success",res.message,3000,'top-center');
+                    $('.table').load(location.href+' .table')
+                }
+            },
+            error:function (response){
+                console.log(response);
+                loaderHide();
             }
         });
     });

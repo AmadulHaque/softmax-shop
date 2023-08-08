@@ -72,7 +72,7 @@
 									<input type="date" name="date" class="form-control">
                                     <h4 class="d-block m-1 pt-2">
                                         <span style="float: left;" >Total</span>
-                                        <span style="float: right">৳ <span id="ShowTotalAmount" >00</span></span>
+                                        <span style="float: right">{{ $setting->currency }} <span id="ShowTotalAmount" >00</span></span>
                                     </h4>
                                     <hr class="m-0">
 								</ul>

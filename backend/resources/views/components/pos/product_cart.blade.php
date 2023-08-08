@@ -9,10 +9,10 @@
         </div>
         <div class="product-title">
             <p>{{ $item->product['title'] }}</p>
-            <p>Total Price : {{ $item->buying_price }}</p>
+            <p>Total Price : {{ $setting->currency }} {{ $item->buying_price }}</p>
         </div>
         <div class="product-price">
-            <p>৳ {{ $item->unit_price }}</p>
+            <p>{{ $setting->currency }} {{ $item->unit_price }}</p>
             <input type="number" class="form-control cardUpdate qty{{$item->id}}" data-id="{{ $item->id }}" value="{{ $item->qty }}">
         </div>
     </li>
