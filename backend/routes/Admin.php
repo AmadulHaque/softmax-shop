@@ -66,6 +66,8 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/order', [OrderController::class, 'Index']);
     Route::get('/order/new', [OrderController::class, 'NewOrder']);
     Route::get('/order/cancle', [OrderController::class, 'CancleOrder']);
+    Route::get('/order/approve/{id}', [OrderController::class, 'ApproveOrder']);
+    Route::post('/order/approve/store/{id}', [OrderController::class, 'ApproveOrderStore']);
     
 
     Route::get('/remove-product/img', [HomeController::class, 'ImgRemove']);

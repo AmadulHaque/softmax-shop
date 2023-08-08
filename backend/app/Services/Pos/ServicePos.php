@@ -62,7 +62,6 @@ trait ServicePos
             }
             $Order = Order::count();
             $order_no =  $Order + 1;
-    
             $order = new Order();
             $order->order_no = $order_no;
             $order->customer_id = $request->customer_id;
@@ -72,11 +71,11 @@ trait ServicePos
             $order->tax = @$request->tax ? $request->tax : 0;
             $order->shipping = $request->shipping;
             $order->discount = $request->discount;
-            $order->ship_name = $request->ship_name;
-            $order->ship_email = $request->ship_email;
-            $order->ship_phone = $request->ship_phone;
-            $order->ship_address = $request->ship_address;
-            $order->ship_postal_code = $request->ship_postal_code;
+            $order->ship_name = $request->name;
+            $order->ship_email = $request->email;
+            $order->ship_phone = $request->phone;
+            $order->ship_address = $request->address;
+            $order->ship_postal_code = $request->postal_code;
             $order->date = date('Y-m-d');
             $order->status = '0';
             $order->created_by = Auth::user()->id;
