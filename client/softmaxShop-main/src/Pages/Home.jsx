@@ -34,7 +34,7 @@ const Home = () => {
                     <Link  to={`/product/details?slug=${info.slug}`}>
                       <button className="bg-orange-500  hover:bg-orange-600 text-white font-semibold py-2 m-auto px-4 rounded-md text-xl sm:text-2xl flex items-center space-x-2">
                           <FaHandPointRight />
-                          <span>Order Now</span>
+                          <span>কিনুন</span>
                       </button>
                     </Link>
                 </div>

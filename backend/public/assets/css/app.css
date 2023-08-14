@@ -59,17 +59,17 @@ a {
 }
 
 .logo-text {
-	font-size: 22px;
+	font-size: 19px;
 	margin-left: 10px;
 	margin-bottom: 0;
 	letter-spacing: 1px;
-	color: #0d6efd
+	color: #ff7d01
 }
 
 .toggle-icon {
 	font-size: 22px;
 	cursor: pointer;
-	color: #0d6efd
+	color: #ff7d01
 }
 
 .topbar {
