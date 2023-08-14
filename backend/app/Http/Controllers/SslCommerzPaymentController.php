@@ -117,7 +117,6 @@ class SslCommerzPaymentController extends Controller
         $sslc = new SslCommerzNotification();
         #Check order status in order tabel against the transaction id or order id.
         $order = DB::table('orders')->where('transaction_id', $tran_id)->select('transaction_id', 'status', 'currency', 'amount','id')->first();
-        $details = DB::table('order_details')->where('order_id',$order->id)->first();
         if ($order->status == '3') {
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
             if ($validation) {
@@ -128,18 +127,13 @@ class SslCommerzPaymentController extends Controller
         } else if ($order->status == '3' || $order->status == '1') {
         } else {
         }
-        $product = DB::table('products')->where('id',$details->product_id)->first();
-        $redirectUrl = 'http://127.0.0.1:5173?slug=' . urlencode($product->slug).'&&status=success';
+        $redirectUrl = 'http://127.0.0.1:5173';
         return redirect($redirectUrl);
     }
 
     public function fail(Request $request)
     {
-        $tran_id = $request->input('tran_id');
-        $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
-        $details = DB::table('order_details')->where('order_id',$order->id)->first();
-        $product = DB::table('products')->where('id',$details->product_id)->first();
-        $redirectUrl = 'http://127.0.0.1:5173?slug=' . urlencode($product->slug).'&&status=fail';
+        $redirectUrl = 'http://127.0.0.1:5173';
         return redirect($redirectUrl);
     }
 
@@ -147,10 +141,7 @@ class SslCommerzPaymentController extends Controller
     {
         $tran_id = $request->input('tran_id');
         $update_product = DB::table('orders')->where('transaction_id', $tran_id)->update(['status' => '2']);
-        $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
-        $details = DB::table('order_details')->where('order_id',$order->id)->first();
-        $product = DB::table('products')->where('id',$details->product_id)->first();
-        $redirectUrl = 'http://127.0.0.1:5173?slug=' . urlencode($product->slug).'&&status=cancel';
+        $redirectUrl = 'http://127.0.0.1:5173';
         return redirect($redirectUrl);
     }
 
@@ -176,9 +167,7 @@ class SslCommerzPaymentController extends Controller
             }
         } else {
         }
-        $details = DB::table('order_details')->where('order_id',$order_details->id)->first();
-        $product = DB::table('products')->where('id',$details->product_id)->first();
-        $redirectUrl = 'http://127.0.0.1:5173?slug=' . urlencode($product->slug).'&&status=ipn';
+        $redirectUrl = 'http://127.0.0.1:5173';
         return redirect($redirectUrl);
     }
     
