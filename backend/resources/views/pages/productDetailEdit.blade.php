@@ -60,7 +60,7 @@
                         <label class="form-label">PD-Learn</label>
                         <select name="PD_learn_id[]" class="multiple-select" data-placeholder="Choose anything" multiple="multiple">
                             @foreach ($pdlearn as $item)
-                            <option @if (in_array($item->id, $PD_important)) selected @endif value="{{ $item->id }}" >{{ $item->title }}</option>
+                            <option @if (in_array($item->id, $PD_learn)) selected @endif value="{{ $item->id }}" >{{ $item->title }}</option>
                             @endforeach 
                         </select>
                     </div>

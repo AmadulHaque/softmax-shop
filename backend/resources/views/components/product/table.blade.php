@@ -1,7 +1,7 @@
 <table id="table-load" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>Title</th>
+            <th>Slug</th>
             <th>Thumbnail</th>
             <th>Category</th>
             <th>Brand</th>
@@ -14,7 +14,7 @@
     <tbody>
         @foreach ($products as $item)
             <tr>
-                <td>{{ $item->title }}</td>
+                <td>{{ $item->slug }}</td>
                 <td style="width:50px" >
                     <img class="rounded " src="{{ asset($item->thumbnail) }}"  style="width:50px"  alt="">
                 </td>

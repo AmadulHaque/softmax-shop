@@ -11,7 +11,7 @@
                                 <header>
                                     <div class="row">
                                         <div class="col invoice-details" style="text-align:left;">
-                                            <h1 class="invoice-id"><a href="javascript:;">Order #{{ $order->order_no }}</a></h1>
+                                            <h1 class="invoice-id "><a href="javascript:;">Order #{{ $order->order_no }}</a></h1>
                                             <div class="date">Date of Order: {{ $order->date }} </div>
                                         </div>
                                         <div class="col company-details" style="text-align: right;">
@@ -51,6 +51,13 @@
                                                 <td class="text-center">{{ $details->selling_qty }}</td>
                                                 <td class="text-center">{{ $setting->currency }} {{ $details->unit_price }}</td>
                                                 <td class="text-center">{{ $setting->currency }} {{ $details->selling_price }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="1">Department : {{ $details->department }}</td>
+                                                <td colspan="1"> Semester : {{ $details->semester }} </td>
+                                                <td colspan="1"></td>
+                                                <td colspan="1"></td>
+                                                <td colspan="3"></td>
                                             </tr>
                                             @php $total_sum += $details->selling_price; @endphp
                                         @endforeach

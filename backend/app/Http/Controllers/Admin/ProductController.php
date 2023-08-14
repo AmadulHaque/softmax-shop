@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Product\AddRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
+use App\Models\OrderDetails;
+use App\Models\ProductDetail;
 use App\Services\ServiceProduct;
 use App\Services\ServiceCategory;
 use App\Services\ServiceBrand;
@@ -92,13 +94,22 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        @unlink(public_path($product->thumbnail));
-        $images=explode(',',$product->images);
-        foreach ($images as $file) {
-            @unlink(public_path($file));
+        $pd = ProductDetail::where('product_id',$product->id)->count();
+        $od = OrderDetails::where('product_id',$product->id)->count();
+        if ($pd > 0) {
+            return new SuccessResource(['message' => 'Associate with Product-Detail.']);
+        }else{
+            if ($od > 0) {
+                return new SuccessResource(['message' => 'Associate with Order-Detail.']);  
+            }else{
+                @unlink(public_path($product->thumbnail));
+                $images=explode(',',$product->images);
+                foreach ($images as $file) {
+                    @unlink(public_path($file));
+                }
+                $product->delete();
+            }
         }
-        $product->delete();
-        return new SuccessResource(['message' => 'Successfully Product deleted.']);
     }
 
 

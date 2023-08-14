@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
@@ -23,7 +24,10 @@ use Illuminate\Http\Request;
 
 
 Route::get('login', [AuthController::class, 'Login'])->name('Login');
-Route::group(['middleware' => 'auth','middleware'=>'Is_Admin'], function () {
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::group(['middleware' =>'auth'], function () {
+Route::group(['middleware'=>'Is_Admin'], function () {
+    
     Route::get('/', [HomeController::class, 'Home'])->name('Home.index');
     Route::get('/page/remove-product/img', [HomeController::class, 'ImgRemove']);
 Route::group(['prefix' => 'page'], function () {
@@ -67,10 +71,13 @@ Route::group(['prefix' => 'page'], function () {
     // order 
     Route::get('/order', [OrderController::class, 'Index']);
     Route::get('/order/new', [OrderController::class, 'NewOrder']);
+    Route::get('/order/view/{id}', [OrderController::class, 'ViewOrder']);
     Route::get('/order/cancle', [OrderController::class, 'CancleOrder']);
+    Route::get('/order/fail', [OrderController::class, 'OrderFail']);
     Route::get('/order/approve/{id}', [OrderController::class, 'ApproveOrder']);
     Route::post('/order/approve/store/{id}', [OrderController::class, 'ApproveOrderStore']);
     Route::get('/order/remove/{id}', [OrderController::class, 'OrderRemove']);
+    Route::get('/order/status/change/{id}', [OrderController::class, 'OrderStatusChange']);
     Route::get('/order/cancle/{id}', [OrderController::class, 'OrderCancle']);
 
     // stock
@@ -84,7 +91,7 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('/remove-product/img', [HomeController::class, 'ImgRemove']);
     Route::get('/remove-cart/remove/{id}', [HomeController::class, 'CartRemove']);
 });
-});
+});});
 
 
 require __DIR__.'/auth.php';

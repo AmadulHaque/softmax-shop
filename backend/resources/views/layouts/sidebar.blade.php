@@ -36,6 +36,7 @@
 						<li> <a href="/page/customer"><i class="bx bx-right-arrow-alt"></i>All Customer</a></li>
 						<li> <a href="/page/order/new"><i class="bx bx-right-arrow-alt"></i>New Order</a></li>
 						<li> <a href="/page/order"><i class="bx bx-right-arrow-alt"></i>Complete Order</a></li>
+						<li> <a href="/page/order/fail"><i class="bx bx-right-arrow-alt"></i>Fail Order</a></li>
 						<li> <a href="/page/order/cancle"><i class="bx bx-right-arrow-alt"></i>Cancle Order</a></li>
 					</ul>
 				</li>

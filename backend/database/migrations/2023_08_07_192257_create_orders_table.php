@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('customer_id');
             $table->string('pay_type');
             $table->string('pay_number')->nullable();
-            $table->integer('totalAmount');
+            $table->integer('amount');
             $table->integer('tax')->nullable();
             $table->integer('shipping')->nullable();
             $table->integer('discount')->nullable();
@@ -26,8 +26,10 @@ return new class extends Migration
             $table->string('ship_phone')->nullable();
             $table->string('ship_address')->nullable();
             $table->string('ship_postal_code')->nullable();
+            $table->string('transaction_id')->nullable();
             $table->date('date')->nullable();
             $table->text('description')->nullable();
+            $table->tinyInteger('role')->default('processing');
             $table->tinyInteger('status')->default('0');
             $table->integer('created_by')->nullable();
             $table->timestamps();

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Gift\AddRequest;
 use App\Http\Requests\Gift\UpdateRequest;
 use App\Models\Gift;
+use App\Models\ProductDetail;
 use App\Http\Resources\SuccessResource;
 class GiftController extends Controller
 {
@@ -38,7 +39,12 @@ class GiftController extends Controller
 
     public function destroy($id)
     {
-        Gift::where('id',$id)->delete();
-        return new SuccessResource(['message' => 'Successfully  deleted.']);
+        $pd = ProductDetail::where('product_id',$product->id)->count();
+        if ($pd > 0) {
+            return new SuccessResource(['message' => 'Associate with Product-Detail.']);
+        }else{
+            Gift::where('id',$id)->delete();
+            return new SuccessResource(['message' => 'Successfully  deleted.']);
+        }
     } 
 }

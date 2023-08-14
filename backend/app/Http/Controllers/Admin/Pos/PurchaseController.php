@@ -28,12 +28,13 @@ class PurchaseController extends Controller
         $datas = $this->purchases(0);
         return view('pages.PurchasePending',compact('datas'));
     }
-    public function PurchaseAdd()
+    public function PurchaseAdd(Request $request)
     {
+        $search = @$request->search ? $request->search : "";
         $brands = Brand::where('status',1)->get();
         $suppliers = Supplier::where('status',1)->get();
         $categorys = Category::where('status',1)->get();
-        return view('pages.PurchaseAdd',compact('brands','categorys','suppliers'));
+        return view('pages.PurchaseAdd',compact('brands','categorys','suppliers','search'));
     }
     public function PurchaseRemove($id)
     {

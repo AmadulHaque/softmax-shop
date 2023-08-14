@@ -67,7 +67,7 @@ trait ServicePos
             $order->customer_id = $request->customer_id;
             $order->pay_type = $request->pay_type;
             $order->pay_number = $request->pay_number;
-            $order->totalAmount = $carts->sum('buying_price');
+            $order->amount = $carts->sum('buying_price');
             $order->tax = @$request->tax ? $request->tax : 0;
             $order->shipping = $request->shipping;
             $order->discount = $request->discount;

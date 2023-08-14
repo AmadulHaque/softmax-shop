@@ -9,6 +9,7 @@ use App\Http\Requests\Brand\AddRequest;
 use App\Http\Requests\Brand\UpdateRequest;
 use App\Services\ServiceBrand;
 use App\Models\Brand;
+use App\Models\Product;
 
 
 
@@ -40,7 +41,6 @@ class BrandController extends Controller
         return new SuccessResource($data);
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -70,9 +70,14 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $brand->delete();
-        @unlink(public_path($brand->image));
-        return new SuccessResource(['message' => 'Successfully Brand deleted.']);
+        $pc = Product::where('brand_id',$brand->id)->count();
+        if ($pc > 0) {
+            return new SuccessResource(['message' => 'Associate with Product.']);
+        }else{
+            $brand->delete();
+            @unlink(public_path($brand->image));
+            return new SuccessResource(['message' => 'Successfully Brand deleted.']);
+        }
     }
 
 }

@@ -11,7 +11,7 @@ trait ServiceOrder
 {
     public function orders($status)
     {
-        $data = Order::where('status',$status)->latest()->get();
+        $data = Order::where('status',$status)->orderBy('id','desc')->get();
         return $data;
     }
 

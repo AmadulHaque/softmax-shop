@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6 mb-2 mb-md-0">
                     <div class="form-group mb-0">
-                        <input class="form-control form-control" type="text" id="search" name="search" placeholder="Search by Product Name">
+                        <input class="form-control form-control" type="text" id="search" name="search" value="{{ $search }}"  placeholder="Search by Product Name">
                     </div>
                 </div>
                 <div class="col-3">

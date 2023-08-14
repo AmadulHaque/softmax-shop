@@ -9,6 +9,7 @@ use App\Http\Requests\Unit\AddRequest;
 use App\Http\Requests\Unit\UpdateRequest;
 use App\Services\ServiceUnit;
 use App\Models\Unit;
+use App\Models\Product;
 
 class UnitController extends Controller
 {
@@ -55,8 +56,13 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        $unit->delete();
-        return new SuccessResource(['message' => 'Successfully Unit deleted.']);
+        $pc = Product::where('unit_id',$brand->id)->count();
+        if ($pc > 0) {
+            return new SuccessResource(['message' => 'Associate with Product.']);
+        }else{
+            $unit->delete();
+            return new SuccessResource(['message' => 'Successfully Unit deleted.']);
+        }
     }
 
 }

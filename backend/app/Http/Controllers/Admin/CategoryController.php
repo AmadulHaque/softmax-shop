@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Category\AddRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
+use App\Models\Product;
 use App\Services\ServiceCategory;
 use App\Http\Resources\SuccessResource;
 class CategoryController extends Controller
@@ -64,8 +65,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        @unlink(public_path($category->image));
-        return new SuccessResource(['message' => 'Successfully Category deleted.']);
+        $pc = Product::where('category_id',$category->id)->count();
+        if ($pc > 0) {
+            return new SuccessResource(['message' => 'Associate with Product.']);
+        }else{
+            $category->delete();
+            @unlink(public_path($category->image));
+            return new SuccessResource(['message' => 'Successfully Category deleted.']);
+        }   
     }
 }

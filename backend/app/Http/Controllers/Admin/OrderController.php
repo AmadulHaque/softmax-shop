@@ -19,15 +19,38 @@ class OrderController extends Controller
         $datas = $this->orders(0);
         return view('pages.Order.pending',compact('datas'));
     }
+
+    public function ViewOrder($id)
+    {
+        $order = Order::with('orderDetails')->find($id);
+        return view('pages.Order.OrderView',compact('order'));
+    }
     public function CancleOrder()
     {
         $datas = $this->orders(2);
         return view('pages.Order.cancle',compact('datas'));
     }
+
+    public function OrderFail()
+    {
+        $datas = $this->orders(3);
+        return view('pages.Order.Fail',compact('datas'));
+    }
     public function ApproveOrder($id)
     {
         $order = Order::with('orderDetails')->find($id);
         return view('pages.Order.pendingTable',compact('order'));
+    }
+
+    public function OrderStatusChange(Request $request,$id)
+    {
+        Order::where('id',$id)->update([
+            'role'=> $request->status,
+        ]);
+        return response()->json([
+            'success'=>true,
+            'message'=>"Update Success!"
+        ]);
     }
 
     public function ApproveOrderStore(Request $request,$id)

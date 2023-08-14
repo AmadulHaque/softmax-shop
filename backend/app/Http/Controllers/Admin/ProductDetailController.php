@@ -124,7 +124,6 @@ class ProductDetailController extends Controller
 
     public function destroy(ProductDetail $ProductDetail)
     {
-        
         @unlink(public_path($ProductDetail->PD_image_one));
         @unlink(public_path($ProductDetail->PD_image_two));
         @unlink(public_path($ProductDetail->review_images));
