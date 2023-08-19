@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState ,useEffect ,CSSProperties} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaCheckCircle, FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -6,12 +6,11 @@ import UseProducts from "../../hooks/UseProducts";
 import { baseUrl2 } from '../../Helper/Config';
 import { baseUrl } from '../../Helper/Config';
 import axios from 'axios';
+import {PropagateLoader} from "react-spinners";
 
 const Payment = () => {
-
     const [data] = UseProducts(); 
-
-
+    const [loader, setLoader] = useState(false);
     const [state, setState] = useState({
         product_id :data?.data?.id,
         name : "",
@@ -27,7 +26,8 @@ const Payment = () => {
     useEffect(()=>{
         setState(prevState => ({
             ...prevState,
-            product_id:data?.data?.id
+            product_id:data?.data?.id,
+            ship_postal_code:'0000'
         }));
     },[data])
 
@@ -38,9 +38,13 @@ const Payment = () => {
         });
     };
 
+    const offerPrice = Number(data?.data?.offer_price);
+    const price = Number(data?.data?.price);
+
+    const finalPrice = offerPrice > 0 ? offerPrice + 60 : price + 60
+
     const add = async  (e) =>  {
         e.preventDefault();
- 
         if(state.product_id==""){
            toast.error('Product Required!');
         }
@@ -56,9 +60,6 @@ const Payment = () => {
         else if(state.address==""){
            toast.error('Address Required!');
         }
-        else if(state.ship_postal_code==""){
-           toast.error('Postal Code Required!');
-        }
         else if(state.department==""){
             toast.error('Department Required!');
         }
@@ -66,12 +67,14 @@ const Payment = () => {
             toast.error('Semester Required!');
         }
         else {
+            setLoader(true)
             try {
                 toast.success('Success!');
                 const response = await axios.post(baseUrl+'/payment', state);
                 window.location.href = response.data.data;
                 // window.open(response.data.data, '_blank');
             } catch (error) {
+                setLoader(false)
                 toast.error('Something Went Wrong!');
             }
         }
@@ -114,37 +117,32 @@ const Payment = () => {
                     <label htmlFor="address" className="block font-medium mb-1">Address *</label>
                     <input type="text" id="address" name='address' onChange={inputHandle} value={state.address} className={`border rounded w-full py-2 px-3  border-gray-300`}/>
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="postCode" className="block font-medium mb-1">Post Code *</label>
-                    <input type="text" id="postCode" name='ship_postal_code' onChange={inputHandle} value={state.ship_postal_code} className={`border rounded w-full py-2 px-3 border-gray-300`}/>
-                </div>
 
                 <div className="mb-4">
                     <label htmlFor="department" className="block font-medium mb-1">Select Department *</label>
                     <select id="department" name='department' onChange={inputHandle} value={state.department} className={`border rounded w-full py-2 px-3  border-gray-300`} >
                         <option value="">Select Department</option>
-                        <option value="electrical">Electrical Technology</option>
-                        <option value="mechanical">Mechanical Technology</option>
-                        <option value="civil">Civil Technology</option>
-                        <option value="computer">Computer Technology</option>
-                        <option value="power">Power Technology</option>
-                        <option value="electronics">Electronics Technology</option>
-                        {/* Add more options here */}
-                    </select>
+                        <option value="Electrical">Electrical Technology</option>
+                        <option value="Mechanical">Mechanical Technology</option>
+                        <option value="Civil">Civil Technology</option>
+                        <option value="Computer">Computer Technology</option>
+                        <option value="Power">Power Technology</option>
+                        <option value="Electronics">Electronics Technology</option>
+                     </select>
                 </div>
 
                 <div className="mb-4">
                     <label htmlFor="semester" className="block font-medium mb-1">Select Semester *</label>
                     <select id="semester" name='semester' onChange={inputHandle} value={state.semester} className={`border rounded w-full py-2 px-3    border-gray-300`}>
                         <option value="">Select Semester</option>
-                        <option value="semester1">1st Semester</option>
-                        <option value="semester2">2nd Semester</option>
-                        <option value="semester3">3rd Semester</option>
-                        <option value="semester4">4th Semester</option>
-                        <option value="semester5">5th Semester</option>
-                        <option value="semester6">6th Semester</option>
-                        <option value="semester7">7th Semester</option>
-                        {/* Add more options here */}
+                        <option value="Semester 1st">Semester 1st</option>
+                        <option value="Semester 2nd">Semester 2nd</option>
+                        <option value="Semester 3rd">Semester 3rd</option>
+                        <option value="Semester 4th">Semester 4th</option>
+                        <option value="Semester 5th">Semester 5th</option>
+                        <option value="Semester 6th">Semester 6th</option>
+                        <option value="Semester 7th">Semester 7th</option>
+                        <option value="Semester 8th">Semester 8th</option>
                     </select>
                 </div>
             
@@ -166,35 +164,41 @@ const Payment = () => {
                                     <p className="font-semibold">
                                         <div className='block'>
                                             <img className='w-1/12 float-left' src={baseUrl2 + data?.data?.thumbnail} alt="" />
-                                            <span className='w-8/12 pl-5 mt-4 float-left  justify-center align-items-center'>{data?.data?.id} {data?.data?.title}</span>
+                                            <span className='w-8/12 pl-5 mt-4 float-left  justify-center align-items-center'>{data?.data?.title}</span>
                                         </div>
                                     </p>
                                    
                                 </td>
-                                <td className="py-2 px-4 text-right"><span className='pr-3'>× 1</span> ৳ 199</td>
+                                <td className="py-2 px-4 text-right"><span className='pr-3'>× {data?.data?.qty} </span> {data?.setting?.currency} {data?.data?.offer_price > 0 ? data?.data?.offer_price : data?.data?.price }</td>
                             </tr>
                             <tr className="border-b">
                                 <td className="py-2 px-4 font-semibold">Subtotal</td>
-                                <td className="py-2 px-4 text-right">৳ 199</td>
+                                <td className="py-2 px-4 text-right">{data?.setting?.currency} {data?.data?.offer_price > 0 ? data?.data?.offer_price : data?.data?.price }</td>
+                            </tr>
+                            <tr className="border-b">
+                                <td className="py-2 px-4 font-semibold">Shipping</td>
+                                <td className="py-2 px-4 text-right">{data?.setting?.currency} 60 </td>
                             </tr>
                             <tr>
                                 <td className="py-2 px-4 font-semibold">Total</td>
-                                <td className="py-2 px-4 text-right">৳ 199</td>
+                                <td className="py-2 px-4 text-right">{data?.setting?.currency} 
+                                    {finalPrice}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <button type="submit" className="bg-[#F66300] hover:bg-[#f64e00] text-white font-semibold py-3 px-6 w-full rounded-lg flex items-center justify-center space-x-2 mt-5">
-                        <span>Place Order</span>
-                        <span><FaCheckCircle /></span>
-                    </button>
+                    {loader==false ? 
+                    <button type="submit" className="bg-[#F66300] hover:bg-[#f64e00] text-white font-semibold py-3 px-6 w-full rounded-lg flex items-center justify-center space-x-2 mt-5"><span>Place Order</span></button>
+                    : 
+                    <button type="submit" className="bg-[#F66300] hover:bg-[#f64e00] text-white font-semibold py-3 px-6 w-full pb-[25px] rounded-lg flex items-center justify-center space-x-2 mt-5" disabled> <PropagateLoader color="#d8d8d8" /></button>
+                    }
                 </div>
             </form>
 
             <div className="text-center space-y-5 mt-10">
                 <p className="text-2xl">অর্ডার করতে কোন সমস্যা হলে ফেসবুক পেইজে ম্যাসেজ করুন</p>
                 <Link
-                    to="https://www.facebook.com/softmaxbd"
+                    to={data?.setting?.fb_page}
                     target="_blank"
                     className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md inline-flex items-center space-x-2"
                 >

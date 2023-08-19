@@ -77,7 +77,40 @@
                     </div>
                 </div>
             </div>
-
+            <div class="form-group mb-2">
+                <div class="row">
+                    <label class="col-sm-4 control-label" for="name">Department</label>
+                    <div class="col-sm-8">
+                        <select id="" name="department" class="form-control" >
+                            <option value="">-- Select Department --</option>
+                            <option value="Electrical">Electrical Technology</option>
+                            <option value="Mechanical">Mechanical Technology</option>
+                            <option value="Civil">Civil Technology</option>
+                            <option value="Computer">Computer Technology</option>
+                            <option value="Power">Power Technology</option>
+                            <option value="Electronics">Electronics Technology</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="row">
+                    <label class="col-sm-4 control-label" for="name">Semester</label>
+                    <div class="col-sm-8">
+                        <select id="" name="semester" class="form-control" >
+                            <option value="">-- Select Semester --</option>
+                            <option value="Semester 1st">Semester 1st</option>
+                            <option value="Semester 2nd">Semester 2nd</option>
+                            <option value="Semester 3rd">Semester 3rd</option>
+                            <option value="Semester 4th">Semester 4th</option>
+                            <option value="Semester 5th">Semester 5th</option>
+                            <option value="Semester 6th">Semester 6th</option>
+                            <option value="Semester 7th">Semester 7th</option>
+                            <option value="Semester 8th">Semester 8th</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="d-flex justify-content-between fw-600 mb-2 opacity-70">
             <span>Total</span>

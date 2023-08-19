@@ -12,10 +12,17 @@ use App\Models\QuationAns;
 use App\Models\BookReview;
 use App\Models\BookNews;
 use App\Models\ProductDetail;
+use App\Models\Setting;
 class ProductController extends Controller
 {
     function ProductGetByOne($slug){
         $product = Product::where('slug',$slug)->first();
+        $sett = Setting::first();
+        if ($sett) {
+            $setting = $sett;
+        }else{
+            $setting =[];
+        }
         if ($product) {
             if ($product->ProductDetail) {
                 if ($product->ProductDetail['PD_important_id']) {
@@ -54,6 +61,7 @@ class ProductController extends Controller
                     'BookReview'=>$BookReview,
                     'BookNews'=>$BookNews,
                     'gift'=>$gift,
+                    'setting'=> $setting
                 ]);
             }else{
                 return response()->json([
@@ -66,6 +74,7 @@ class ProductController extends Controller
                     'BookReview'=>[],
                     'BookNews'=>[],
                     'gift'=>[],
+                    'setting'=> $setting
                 ]);
             }
         }else{
@@ -79,6 +88,7 @@ class ProductController extends Controller
                 'BookReview'=>[],
                 'BookNews'=>[],
                 'gift'=>[],
+                'setting'=> $setting
             ]);
         }
     }

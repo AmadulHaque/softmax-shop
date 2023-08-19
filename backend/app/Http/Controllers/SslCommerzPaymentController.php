@@ -38,7 +38,7 @@ class SslCommerzPaymentController extends Controller
             $amount = $product->price;
         }
         $post_data = array();
-        $post_data['total_amount'] = $amount; 
+        $post_data['total_amount'] = $amount + 60; 
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = $order_no;
         # CUSTOMER INFORMATION

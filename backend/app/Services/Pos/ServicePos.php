@@ -88,10 +88,14 @@ trait ServicePos
                 $OrderDetails->selling_qty = $value->qty;
                 $OrderDetails->unit_price = $value->unit_price;
                 $OrderDetails->selling_price = $value->buying_price;
+                $OrderDetails->department = $request->department;
+                $OrderDetails->semester = $request->semester;
                 $OrderDetails->status = '0';
                 $OrderDetails->save();
                 $value->delete();
             }
+            
+            
             // Commit the transaction if all operations are successful
             DB::commit();
         } catch (\Exception $e) {

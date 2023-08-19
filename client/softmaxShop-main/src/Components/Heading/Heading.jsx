@@ -1,12 +1,17 @@
+import { useEffect, useState } from "react";
 import { FaHandPointRight } from "react-icons/fa";
 import UseProducts from "../../hooks/UseProducts";
 import { Link as ScrollLink } from "react-scroll";
 
 const Heading = () => {
     const [data] = UseProducts();
-    const videoId = data?.details?.video_one_url.split('/').pop(); // Extract video ID
 
-    const embeddedUrl = `https://www.youtube.com/embed/${videoId}`; // Construct embedded URL
+    const [video,setVideo] = useState();
+
+    useEffect(()=>{
+        const videoId = data?.details?.video_one_url?.split('/').pop(); 
+        setVideo(videoId)
+    },[data?.details])
 
     if (data?.details?.title) {
         return (
@@ -20,7 +25,7 @@ const Heading = () => {
                     <div className="max-w-[1120px] mx-auto px-2 sm:px-0 my-5">
                         <iframe
                             className=" video w-full h-[315px] sm:h-[400px] md:h-[575px] border-4 border-blue-500"
-                            src={`${embeddedUrl}?autoplay=1`} // Use the constructed embedded URL
+                            src={`https://www.youtube.com/embed/${video}?autoplay=1`}
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture web-share"
                             allowFullScreen
