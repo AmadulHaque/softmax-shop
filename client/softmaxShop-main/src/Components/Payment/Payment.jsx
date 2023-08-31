@@ -41,7 +41,7 @@ const Payment = () => {
     const offerPrice = Number(data?.data?.offer_price);
     const price = Number(data?.data?.price);
 
-    const finalPrice = offerPrice > 0 ? offerPrice + 60 : price + 60
+    const finalPrice = offerPrice > 0 ? offerPrice : price 
 
     const add = async  (e) =>  {
         e.preventDefault();
@@ -173,10 +173,14 @@ const Payment = () => {
                             </tr>
                             <tr className="border-b">
                                 <td className="py-2 px-4 font-semibold">Subtotal</td>
-                                <td className="py-2 px-4 text-right">{data?.setting?.currency} {data?.data?.offer_price > 0 ? data?.data?.offer_price : data?.data?.price }</td>
+                                <td className="py-2 px-4 text-right">{data?.setting?.currency} {finalPrice}</td>
                             </tr>
                             <tr className="border-b">
                                 <td className="py-2 px-4 font-semibold">Shipping</td>
+                                <td className="py-2 px-4 text-right">{data?.setting?.currency} 60 </td>
+                            </tr>
+                                                        <tr className="border-b">
+                                <td className="py-2 px-4 font-semibold">Discount</td>
                                 <td className="py-2 px-4 text-right">{data?.setting?.currency} 60 </td>
                             </tr>
                             <tr>
